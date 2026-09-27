@@ -254,8 +254,17 @@ const RouTracker = (function () {
     }
 
     // Clear history
-    function clearEvents() {
+    async function clearEvents() {
         localStorage.removeItem(STORAGE_KEY);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+        const syncKey = (window.ROU_CONFIG && window.ROU_CONFIG.cloudSyncKey) || 'rou_bday_oct6_2026';
+        try {
+            await fetch(`https://kvdb.io/4yKqPqM1WjV7mB9L2qfH9A/${syncKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify([])
+            });
+        } catch (e) {}
     }
 
     return {

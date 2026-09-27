@@ -694,80 +694,79 @@
             }
 
             function renderEvents(events) {
+                if (!Array.isArray(events)) events = [];
                 eventCountBadge.textContent = `${events.length} Events`;
-
-                if (!events || events.length === 0) {
-                    activityFeed.innerHTML = `
-                        <div class="empty-feed">
-                            <p>No activity recorded yet.<br>When Rou visits the page, blows the candle, or selects a pass, it will appear here in real-time!</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                activityFeed.innerHTML = '';
 
                 let latestVoucher = null;
                 let latestCandle = null;
                 let latestGift = null;
                 let jarDrawnList = [];
 
-                events.forEach(ev => {
-                    const type = ev.type || 'info';
-                    const data = ev.data || {};
-                    const time = ev.formattedTime || ev.timestamp;
-
-                    if (type === 'voucher_redeemed' && !latestVoucher) latestVoucher = ev;
-                    if (type === 'candle_blown' && !latestCandle) latestCandle = ev;
-                    if (type === 'giftbox_opened' && !latestGift) latestGift = ev;
-                    if (type === 'jar_drawn') jarDrawnList.push(ev);
-
-                    // Create Feed Item
-                    const item = document.createElement('div');
-                    item.className = 'feed-item type-' + getStyleType(type);
-
-                    let icon = '📌';
-                    let title = data.title || type;
-                    let desc = data.desc || data.note || '';
-
-                    if (type === 'voucher_redeemed') {
-                        icon = '🎟️';
-                        title = `${data.serial}: ${data.title}`;
-                        desc = `"${data.desc}" • [Badge: ${data.badge}]`;
-                    } else if (type === 'candle_blown') {
-                        icon = '🎂';
-                        title = 'Candle Blown Out';
-                        desc = 'Rou made her birthday wish and extinguished the candle on the cake!';
-                    } else if (type === 'giftbox_opened') {
-                        icon = '🎁';
-                        title = 'Morning Surprise Unboxed';
-                        desc = 'Rou opened the 3D mystery box and read the October 6th morning gift teaser.';
-                    } else if (type === 'star_explored') {
-                        icon = '🌟';
-                        title = data.title;
-                        desc = data.desc;
-                    } else if (type === 'jar_drawn') {
-                        icon = '💭';
-                        title = data.title;
-                        desc = `"${data.quote}" (Count: ${data.count})`;
-                    } else if (type === 'page_visit') {
-                        icon = '👁️';
-                        title = 'Website Visited';
-                        desc = `Screen: ${data.screen || 'Mobile/Desktop'} • Referrer: ${data.referrer || 'Direct'}`;
-                    }
-
-                    item.innerHTML = `
-                        <div class="feed-icon">${icon}</div>
-                        <div class="feed-content">
-                            <div class="feed-title-line">
-                                <span class="feed-title">${title}</span>
-                                <span class="feed-time">${time}</span>
-                            </div>
-                            <div class="feed-desc">${desc}</div>
+                if (events.length === 0) {
+                    activityFeed.innerHTML = `
+                        <div class="empty-feed">
+                            <p>No activity recorded yet.<br>When Rou visits the page, blows the candle, or selects a pass, it will appear here in real-time!</p>
                         </div>
                     `;
-                    activityFeed.appendChild(item);
-                });
+                } else {
+                    activityFeed.innerHTML = '';
+                    events.forEach(ev => {
+                        const type = ev.type || 'info';
+                        const data = ev.data || {};
+                        const time = ev.formattedTime || ev.timestamp;
+
+                        if (type === 'voucher_redeemed' && !latestVoucher) latestVoucher = ev;
+                        if (type === 'candle_blown' && !latestCandle) latestCandle = ev;
+                        if (type === 'giftbox_opened' && !latestGift) latestGift = ev;
+                        if (type === 'jar_drawn') jarDrawnList.push(ev);
+
+                        // Create Feed Item
+                        const item = document.createElement('div');
+                        item.className = 'feed-item type-' + getStyleType(type);
+
+                        let icon = '📌';
+                        let title = data.title || type;
+                        let desc = data.desc || data.note || '';
+
+                        if (type === 'voucher_redeemed') {
+                            icon = '🎟️';
+                            title = `${data.serial}: ${data.title}`;
+                            desc = `"${data.desc}" • [Badge: ${data.badge}]`;
+                        } else if (type === 'candle_blown') {
+                            icon = '🎂';
+                            title = 'Candle Blown Out';
+                            desc = 'Rou made her birthday wish and extinguished the candle on the cake!';
+                        } else if (type === 'giftbox_opened') {
+                            icon = '🎁';
+                            title = 'Morning Surprise Unboxed';
+                            desc = 'Rou opened the 3D mystery box and read the October 6th morning gift teaser.';
+                        } else if (type === 'star_explored') {
+                            icon = '🌟';
+                            title = data.title;
+                            desc = data.desc;
+                        } else if (type === 'jar_drawn') {
+                            icon = '💭';
+                            title = data.title;
+                            desc = `"${data.quote}" (Count: ${data.count})`;
+                        } else if (type === 'page_visit') {
+                            icon = '👁️';
+                            title = 'Website Visited';
+                            desc = `Screen: ${data.screen || 'Mobile/Desktop'} • Referrer: ${data.referrer || 'Direct'}`;
+                        }
+
+                        item.innerHTML = `
+                            <div class="feed-icon">${icon}</div>
+                            <div class="feed-content">
+                                <div class="feed-title-line">
+                                    <span class="feed-title">${title}</span>
+                                    <span class="feed-time">${time}</span>
+                                </div>
+                                <div class="feed-desc">${desc}</div>
+                            </div>
+                        `;
+                        activityFeed.appendChild(item);
+                    });
+                }
 
                 // Update Hero Voucher Card
                 if (latestVoucher) {
@@ -813,6 +812,8 @@
                 jarCount.textContent = `${jarDrawnList.length} / 10`;
                 if (jarDrawnList.length > 0) {
                     jarLastThought.textContent = `Last: "${jarDrawnList[0].data?.quote?.substring(0, 24)}..."`;
+                } else {
+                    jarLastThought.textContent = 'None yet';
                 }
             }
 
@@ -832,8 +833,8 @@
             });
 
             clearBtn.addEventListener('click', async () => {
-                if (confirm('Are you sure you want to clear all logged activity?')) {
-                    if (window.RouTracker) window.RouTracker.clearEvents();
+                if (confirm('هل أنت متأكد من مسح جميع السجلات والأحداث المسجلة؟ / Clear all recorded events?')) {
+                    if (window.RouTracker) await window.RouTracker.clearEvents();
                     try { await fetch('/api/clear', { method: 'POST' }); } catch(e){}
                     renderEvents([]);
                 }
