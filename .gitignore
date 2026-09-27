@@ -1,0 +1,13 @@
+# Backups and temporary files
+*.bak
+.DS_Store
+Thumbs.db
+WhatsApp Audio*
+
+# Local development
+events.json
+server.py
+
+# Vercel & Node
+.vercel
+node_modules/
