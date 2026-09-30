@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Rou! ✨ A Special Celebration</title>
+    <title>Happy Birthday, Rou!</title>
     <!-- Google Fonts: Cairo, Playfair Display, Great Vibes, Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cairo:wght@400;600;700;800;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cairo:wght@400;600;700;800;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="theme-rose">
 
     <!-- Ambient Canvas Backgrounds -->
@@ -19,48 +23,86 @@
     <header class="top-nav-container">
         <div class="nav-brand">
             <span class="sparkle-icon">
-                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                </svg>
             </span>
-            <span class="brand-text">A Special Surprise • <strong>For Rou</strong> ✨</span>
+            <span class="brand-text" data-i18n="brand_text">A Special Surprise • <strong>For Rou</strong> ✨</span>
         </div>
         <nav class="nav-tabs" id="navTabs">
             <button class="nav-tab-btn active" data-theme="theme-rose" data-view="view-cake">
                 <span class="tab-icon">
-                    <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><circle cx="7" cy="4" r="1"/><circle cx="12" cy="4" r="1"/><circle cx="17" cy="4" r="1"/></svg>
+                    <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                        <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" />
+                        <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1" />
+                        <path d="M2 21h20" />
+                        <path d="M7 8v3" />
+                        <path d="M12 8v3" />
+                        <path d="M17 8v3" />
+                        <circle cx="7" cy="4" r="1" />
+                        <circle cx="12" cy="4" r="1" />
+                        <circle cx="17" cy="4" r="1" />
+                    </svg>
                 </span>
                 <span class="tab-label">
-                    <span class="label-full">Rose Cake & Wishes</span>
-                    <span class="label-short">Cake</span>
+                    <span class="label-full" data-i18n="tab_cake_full">Rose Cake & Wishes</span>
+                    <span class="label-short" data-i18n="tab_cake_short">Cake</span>
                 </span>
             </button>
             <button class="nav-tab-btn" data-theme="theme-scrapbook" data-view="view-scrapbook">
                 <span class="tab-icon">
-                    <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                    <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                        <path
+                            d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
+                        <path d="M13 5v2" />
+                        <path d="M13 17v2" />
+                        <path d="M13 11v2" />
+                    </svg>
                 </span>
                 <span class="tab-label">
-                    <span class="label-full">Surprise Passes & Gift</span>
-                    <span class="label-short">Passes</span>
+                    <span class="label-full" data-i18n="tab_passes_full">Surprise Passes & Gift</span>
+                    <span class="label-short" data-i18n="tab_passes_short">Passes</span>
                 </span>
             </button>
             <button class="nav-tab-btn" data-theme="theme-stars" data-view="view-stars">
                 <span class="tab-icon">
-                    <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M19 3v4"/><path d="M21 5h-4"/></svg>
+                    <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                        <path d="M19 3v4" />
+                        <path d="M21 5h-4" />
+                    </svg>
                 </span>
                 <span class="tab-label">
-                    <span class="label-full">Starlit Night & Music</span>
-                    <span class="label-short">Stars</span>
+                    <span class="label-full" data-i18n="tab_stars_full">Starlit Night & Music</span>
+                    <span class="label-short" data-i18n="tab_stars_short">Stars</span>
                 </span>
             </button>
         </nav>
-        <div class="audio-control-wrapper">
-            <button id="musicToggleBtn" class="audio-btn" title="Play / Pause Music">
-                <span class="audio-icon" id="audioIcon">
-                    <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <div class="nav-controls-group">
+            <button id="langToggleBtn" class="lang-btn" title="التحويل للغة العربية" aria-label="Toggle language">
+                <span class="lang-icon">
+                    <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.1em;height:1.1em;">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
                 </span>
-                <span class="audio-wave">
-                    <span></span><span></span><span></span>
-                </span>
+                <span class="lang-text" id="langBtnText">عربي</span>
             </button>
+            <div class="audio-control-wrapper">
+                <button id="musicToggleBtn" class="audio-btn" title="Play / Pause Music">
+                    <span class="audio-icon" id="audioIcon">
+                        <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </span>
+                    <span class="audio-wave">
+                        <span></span><span></span><span></span>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -74,43 +116,57 @@
             <div class="step active" id="cakeStep1">
                 <div class="glass-card welcome-card">
                     <div class="badge-pill">
-                        <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4 2 2.5-2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M12 8v3"/><circle cx="12" cy="4" r="1"/></svg>
-                        October 6, 2026 • A Special Day for Someone Truly Special
+                        <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                            <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" />
+                            <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4 2 2.5-2 4 2 2-1 2-1" />
+                            <path d="M2 21h20" />
+                            <path d="M12 8v3" />
+                            <circle cx="12" cy="4" r="1" />
+                        </svg>
+                        <span data-i18n="cake_badge">October 6, 2026 • A Special Day for Someone Truly Special</span>
                     </div>
-                    <h1 class="script-title">Happy Birthday, Rou</h1>
-                    <p class="welcome-lead">Today isn't just an ordinary day.. It’s the birthday of someone so dear, radiant, and special to me. I wanted to create a little surprise to make you smile and start your new year with warmth and joy! <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></p>
-                    
+                    <h1 class="script-title" data-i18n="cake_title">Happy Birthday, Rou</h1>
+                    <p class="welcome-lead" data-i18n="cake_lead">Today isn't just an ordinary day.. It’s the birthday of someone so dear,
+                        radiant, and special to me. I wanted to create a little surprise to make you smile and start
+                        your new year with warmth and joy! <svg class="svg-icon" viewBox="0 0 24 24"
+                            style="color:var(--accent-gold);">
+                            <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                        </svg></p>
+
                     <!-- Live Birthday Countdown Widget -->
                     <div class="countdown-widget">
                         <span class="countdown-label">
-                            <svg class="svg-icon stroke" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            Countdown to your special birthday:
+                            <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span data-i18n="countdown_label">Countdown to your special birthday:</span>
                         </span>
                         <div class="countdown-grid" id="mainCountdown">
                             <div class="c-unit">
                                 <span class="c-val" id="cdDays">00</span>
-                                <span class="c-lbl">Days</span>
+                                <span class="c-lbl" data-i18n="cd_days">Days</span>
                             </div>
                             <span class="c-sep">:</span>
                             <div class="c-unit">
                                 <span class="c-val" id="cdHours">00</span>
-                                <span class="c-lbl">Hours</span>
+                                <span class="c-lbl" data-i18n="cd_hours">Hours</span>
                             </div>
                             <span class="c-sep">:</span>
                             <div class="c-unit">
                                 <span class="c-val" id="cdMins">00</span>
-                                <span class="c-lbl">Mins</span>
+                                <span class="c-lbl" data-i18n="cd_mins">Mins</span>
                             </div>
                             <span class="c-sep">:</span>
                             <div class="c-unit">
                                 <span class="c-val" id="cdSecs">00</span>
-                                <span class="c-lbl">Secs</span>
+                                <span class="c-lbl" data-i18n="cd_secs">Secs</span>
                             </div>
                         </div>
                     </div>
 
                     <button id="startRoseJourneyBtn" class="magic-btn primary-btn">
-                        <span>Begin the Journey, Rou <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                        <span data-i18n="btn_start_journey">Begin the Journey, Rou ✨</span>
                         <div class="btn-glow"></div>
                     </button>
                 </div>
@@ -122,7 +178,7 @@
                     <div class="envelope-box" id="envelopeInteractive">
                         <div class="envelope-back"></div>
                         <div class="letter-preview">
-                            <span class="seal-text">To Rou <svg class="svg-icon stroke" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                            <span class="seal-text" data-i18n="envelope_seal_text">To Rou ✉</span>
                         </div>
                         <div class="envelope-flap"></div>
                         <div class="envelope-front"></div>
@@ -130,7 +186,7 @@
                             <span class="seal-letter">R</span>
                         </div>
                     </div>
-                    <p class="pulse-hint">Click the envelope to open <svg class="svg-icon stroke" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></p>
+                    <p class="pulse-hint" data-i18n="envelope_hint">Click the envelope to open ✉</p>
                 </div>
             </div>
 
@@ -139,18 +195,33 @@
                 <div class="parchment-letter-wrapper" id="parchmentWrapper">
                     <div class="parchment-letter">
                         <div class="letter-header">
-                            <span class="letter-date">October 6, 2026</span>
-                            <h2 class="letter-salutation">To the sweetest Rou,</h2>
+                            <span class="letter-date" data-i18n="letter_date">October 6, 2026</span>
+                            <h2 class="letter-salutation" data-i18n="letter_salutation">To the sweetest Rou,</h2>
                         </div>
                         <div class="letter-body">
-                            <p>Happy Birthday! Wishing you a year full of radiant smiles, peaceful days, and all the true happiness your gentle soul deserves.</p>
-                            <p>I can’t begin to tell you how much your presence truly means to me, and how easily you turn an ordinary day into something bright, beautiful, and memorable. I feel genuinely lucky to have you in my life and for every moment we get to share.</p>
-                            <p class="letter-quote">"May you always stay as joyful, radiant, and inspiring as you are.. and may we always remain this close, standing by each other through it all."</p>
+                            <p data-i18n="letter_p1">Happy Birthday! Wishing you a year full of radiant smiles, peaceful days, and all the
+                                true happiness your gentle soul deserves.</p>
+                            <p data-i18n="letter_p2">I can’t begin to tell you how much your presence truly means to me, and how easily you
+                                turn an ordinary day into something bright, beautiful, and memorable. I feel genuinely
+                                lucky to have you in my life and for every moment we get to share.</p>
+                            <p class="letter-quote" data-i18n="letter_quote">"May you always stay as joyful, radiant, and inspiring as you are..
+                                and may we always remain this close, standing by each other through it all."</p>
                         </div>
                         <div class="letter-footer">
-                            <p class="letter-sign">Always got your back & right here with you <svg class="svg-icon heart-pulse" viewBox="0 0 24 24" style="color:#e63946;width:1.25em;height:1.25em;vertical-align:-0.18em;filter:drop-shadow(0 0 8px rgba(230,57,70,0.6));"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
+                            <p class="letter-sign" data-i18n="letter_sign">Always got your back & right here with you <svg
+                                    class="svg-icon heart-pulse" viewBox="0 0 24 24"
+                                    style="color:#e63946;width:1.25em;height:1.25em;vertical-align:-0.18em;filter:drop-shadow(0 0 8px rgba(230,57,70,0.6));">
+                                    <path
+                                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg></p>
                             <button id="proceedToCakeBtn" class="magic-btn gold-btn">
-                                <span>Reveal the Cake & Candles <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M12 8v3"/><circle cx="12" cy="4" r="1"/></svg></span>
+                                <span data-i18n="btn_proceed_cake">Reveal the Cake & Candles <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                        <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" />
+                                        <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1" />
+                                        <path d="M2 21h20" />
+                                        <path d="M12 8v3" />
+                                        <circle cx="12" cy="4" r="1" />
+                                    </svg></span>
                             </button>
                         </div>
                     </div>
@@ -166,10 +237,18 @@
 
                     <div class="cake-showcase-card">
                         <div class="celebration-titles">
-                            <span class="sparkle-tag"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> The Sweetest Birthday Wish <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></span>
-                            <h1 class="main-celebrate-title" id="typewriterGreeting">Happy Birthday, Rou!</h1>
-                            <p class="cake-instruction" id="cakeInstruction">
-                                <span class="blow-icon"><svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></span>
+                            <span class="sparkle-tag" data-i18n="cake_wish_tag"><svg class="svg-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                </svg> The Sweetest Birthday Wish <svg class="svg-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                </svg></span>
+                            <h1 class="main-celebrate-title" id="typewriterGreeting" data-i18n="celebrate_title">Happy Birthday, Rou!</h1>
+                            <p class="cake-instruction" id="cakeInstruction" data-i18n="cake_instruction">
+                                <span class="blow-icon"><svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                        <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
+                                        <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
+                                        <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
+                                    </svg></span>
                                 <strong>Make a wish for your new year and blow out the candle!</strong>
                             </p>
                         </div>
@@ -246,16 +325,27 @@
                         <!-- Blow Button for easy interaction -->
                         <div class="blow-action-container">
                             <button id="blowCandleBtn" class="magic-btn candle-action-btn">
-                                <span><svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg> Blow out the candle, Rou!</span>
+                                <span data-i18n="btn_blow_candle"><svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                        <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
+                                        <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
+                                        <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
+                                    </svg> Blow out the candle, Rou!</span>
                             </button>
                         </div>
 
                         <div class="celebration-wishes-box" id="celebrationWishesBox">
-                            <p class="poetic-wish">"Wishing you a year as bright as your smile and as warm as your heart. May joy surround you every single day!"</p>
-                            <div class="final-signature-pill">Specially Made • For Rou ✨</div>
+                            <p class="poetic-wish" data-i18n="poetic_wish">"Wishing you a year as bright as your smile and as warm as your
+                                heart. May joy surround you every single day!"</p>
+                            <div class="final-signature-pill" data-i18n="final_signature">Specially Made • For Rou ✨</div>
                             <div class="post-cake-links">
                                 <button class="mini-switch-btn" data-switch="view-scrapbook">
-                                    <span>Go to Surprise Passes & Gift <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg> ➔</span>
+                                    <span data-i18n="btn_go_scrapbook">Go to Surprise Passes & Gift <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                            <path
+                                                d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
+                                            <path d="M13 5v2" />
+                                            <path d="M13 17v2" />
+                                            <path d="M13 11v2" />
+                                        </svg> ➔</span>
                                 </button>
                             </div>
                         </div>
@@ -284,10 +374,11 @@
 
                 <div class="section-hero">
                     <h2 class="vintage-title">
-                        <span>Surprise Passes & Wishes</span>
-                        <span class="highlight-rou">For Rou <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.15em;height:1.15em;color:var(--accent-gold);"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg></span>
+                        <span data-i18n="scrapbook_title">Surprise Passes & Wishes</span>
+                        <span class="highlight-rou" data-i18n="highlight_rou">For Rou 🎟️</span>
                     </h2>
-                    <p class="section-subtitle">3 exclusive birthday vouchers crafted just for you.. Click any card to redeem!</p>
+                    <p class="section-subtitle" data-i18n="scrapbook_subtitle">3 exclusive birthday vouchers crafted just for you.. Click any card to
+                        redeem!</p>
                 </div>
 
                 <!-- Interactive Golden Birthday Vouchers -->
@@ -296,63 +387,89 @@
                     <div class="voucher-card tilt-left" id="voucherCard1" tabindex="0">
                         <div class="clip-pin"></div>
                         <div class="voucher-header">
-                            <span class="voucher-serial">PASS #01 • TRUTH PASS</span>
-                            <span class="voucher-badge">100% Honest</span>
+                            <span class="voucher-serial" data-i18n="v1_serial">PASS #01 • TRUTH PASS</span>
+                            <span class="voucher-badge" data-i18n="v1_badge">100% Honest</span>
                         </div>
                         <div class="voucher-icon-wrap">
-                            <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:var(--accent-gold);">
+                                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
                         </div>
-                        <h3 class="voucher-title">The Ultimate Truth Card</h3>
-                        <p class="voucher-desc">You have the right to ask me any question that crosses your mind, and you'll get a 100% honest, heartfelt answer with zero hesitation or dodging.</p>
+                        <h3 class="voucher-title" data-i18n="v1_title">The Ultimate Truth Card</h3>
+                        <p class="voucher-desc" data-i18n="v1_desc">You have the right to ask me any question that crosses your mind, and
+                            you'll get a 100% honest, heartfelt answer with zero hesitation or dodging.</p>
                         <div class="voucher-action">
                             <button class="voucher-btn" data-voucher="1">
-                                <span>Redeem Voucher Now</span>
-                                <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span data-i18n="btn_redeem">Redeem Voucher Now</span>
+                                <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
                             </button>
                         </div>
-                        <div class="voucher-stamp">Pure Honesty 100% 🤍</div>
+                        <div class="voucher-stamp" data-i18n="v1_stamp">Pure Honesty 100% 🤍</div>
                     </div>
 
                     <!-- Ticket 2 -->
                     <div class="voucher-card tilt-straight highlight-card" id="voucherCard2" tabindex="0">
                         <div class="clip-pin"></div>
                         <div class="voucher-header">
-                            <span class="voucher-serial">PASS #02 • MAGIC WISH</span>
-                            <span class="voucher-badge">100% Guaranteed</span>
+                            <span class="voucher-serial" data-i18n="v2_serial">PASS #02 • MAGIC WISH</span>
+                            <span class="voucher-badge" data-i18n="v2_badge">100% Guaranteed</span>
                         </div>
                         <div class="voucher-icon-wrap">
-                            <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:#ffd700;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                            <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:#ffd700;">
+                                <path
+                                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                                <path d="M5 3v4" />
+                                <path d="M19 17v4" />
+                                <path d="M3 5h4" />
+                                <path d="M17 19h4" />
+                            </svg>
                         </div>
-                        <h3 class="voucher-title">Any Wish Granted for Rou</h3>
-                        <p class="voucher-desc">One wish, favor, or request of your choice granted anytime you wish, with zero conditions attached. Use it whenever you please.</p>
+                        <h3 class="voucher-title" data-i18n="v2_title">Any Wish Granted for Rou</h3>
+                        <p class="voucher-desc" data-i18n="v2_desc">One wish, favor, or request of your choice granted anytime you wish,
+                            with zero conditions attached. Use it whenever you please.</p>
                         <div class="voucher-action">
                             <button class="voucher-btn" data-voucher="2">
-                                <span>Redeem Voucher Now</span>
-                                <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span data-i18n="btn_redeem">Redeem Voucher Now</span>
+                                <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
                             </button>
                         </div>
-                        <div class="voucher-stamp">Ready to Fulfill! 🪄</div>
+                        <div class="voucher-stamp" data-i18n="v2_stamp">Ready to Fulfill! 🪄</div>
                     </div>
 
                     <!-- Ticket 3 -->
                     <div class="voucher-card tilt-right" id="voucherCard3" tabindex="0">
                         <div class="clip-pin"></div>
                         <div class="voucher-header">
-                            <span class="voucher-serial">PASS #03 • 24/7 HOTLINE</span>
-                            <span class="voucher-badge">Emergency 24/7</span>
+                            <span class="voucher-serial" data-i18n="v3_serial">PASS #03 • 24/7 HOTLINE</span>
+                            <span class="voucher-badge" data-i18n="v3_badge">Emergency 24/7</span>
                         </div>
                         <div class="voucher-icon-wrap">
-                            <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:#64ffda;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:#64ffda;">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
                         </div>
-                        <h3 class="voucher-title">Heart-to-Heart & Listening 24/7</h3>
-                        <p class="voucher-desc">A late-night call, a safe space to vent, or just someone to listen whenever life feels heavy.. I’m always here and ready to turn your mood around.</p>
+                        <h3 class="voucher-title" data-i18n="v3_title">Heart-to-Heart & Listening 24/7</h3>
+                        <p class="voucher-desc" data-i18n="v3_desc">A late-night call, a safe space to vent, or just someone to listen
+                            whenever life feels heavy.. I’m always here and ready to turn your mood around.</p>
                         <div class="voucher-action">
                             <button class="voucher-btn" data-voucher="3">
-                                <span>Redeem Voucher Now</span>
-                                <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span data-i18n="btn_redeem">Redeem Voucher Now</span>
+                                <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
                             </button>
                         </div>
-                        <div class="voucher-stamp">Line Always Open 📞</div>
+                        <div class="voucher-stamp" data-i18n="v3_stamp">Line Always Open 📞</div>
                     </div>
                 </div>
 
@@ -362,14 +479,22 @@
                     <div class="giftbox-showcase-card">
                         <div class="giftbox-header">
                             <span class="gift-icon">
-                                <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                                <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                    <path d="M20 12v10H4V12" />
+                                    <path d="M2 7h20v5H2z" />
+                                    <path d="M12 22V7" />
+                                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                                </svg>
                             </span>
-                            <h3>Morning Surprise for Rou</h3>
-                            <p>This website is just a gentle prelude... A real gift is waiting for you in the morning! Click the box <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.1em;height:1.1em;color:var(--accent-gold);"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></p>
+                            <h3 data-i18n="giftbox_header_title">Morning Surprise for Rou</h3>
+                            <p data-i18n="giftbox_header_desc">This website is just a gentle prelude... A real gift is waiting for you in the morning!
+                                Click the box 🎁</p>
                         </div>
 
                         <div class="giftbox-stage">
-                            <div class="giftbox-container" id="giftboxInteractive" title="Click to open your surprise, Rou! ✨">
+                            <div class="giftbox-container" id="giftboxInteractive"
+                                title="Click to open your surprise, Rou! ✨">
                                 <!-- Ambient Magic Glow -->
                                 <div class="gift-ambient-glow"></div>
 
@@ -395,7 +520,7 @@
                                     <div class="body-ribbon-horizontal"></div>
                                     <div class="gift-tag-luxury">
                                         <span class="tag-eyelet"></span>
-                                        <span class="tag-label-text">For Rou <svg class="svg-icon" viewBox="0 0 24 24" style="width:0.85em;height:0.85em;color:#ff3366;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+                                        <span class="tag-label-text" data-i18n="gift_tag_text">For Rou ❤️</span>
                                     </div>
                                 </div>
                             </div>
@@ -404,23 +529,44 @@
                             <div class="gift-revealed-card" id="giftRevealedCard">
                                 <div class="revealed-header">
                                     <span class="badge-pill">
-                                        <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M12 2v6"/><path d="m4.93 10.93 4.24-4.24"/><path d="M2 18h20"/><path d="M20 10l-4 4"/><path d="m4.93 18.07 4.24-4.24"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>
-                                        A Special Surprise Prepared for Your Morning
-                                        <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
+                                        <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                            <path d="M12 2v6" />
+                                            <path d="m4.93 10.93 4.24-4.24" />
+                                            <path d="M2 18h20" />
+                                            <path d="M20 10l-4 4" />
+                                            <path d="m4.93 18.07 4.24-4.24" />
+                                            <path d="M16 18a4 4 0 0 0-8 0" />
+                                        </svg>
+                                        <span data-i18n="gift_badge">A Special Surprise Prepared for Your Morning</span>
+                                        <svg class="svg-icon stroke" viewBox="0 0 24 24"
+                                            style="color:var(--accent-gold);">
+                                            <path d="M6 3h12l4 6-10 13L2 9z" />
+                                            <path d="M11 3 8 9l4 13 4-13-3-6" />
+                                            <path d="M2 9h20" />
+                                        </svg>
                                     </span>
-                                    <h4>A special morning gift is waiting for you, Rou <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></h4>
+                                    <h4 data-i18n="gift_revealed_title">A special morning gift is waiting for you, Rou ✨</h4>
                                 </div>
-                                <p class="revealed-text">
-                                    "This website is just a small token so you smile from the very first minute.. But there’s another special gift I picked out just for you that will reach you on the morning of <strong>October 6, 2026</strong>. Something chosen to match your graceful taste, to always remind you of how truly special you are to me.. I really hope you'll love it!"
+                                <p class="revealed-text" data-i18n="gift_revealed_text">
+                                    "This website is just a small token so you smile from the very first minute.. But
+                                    there’s another special gift I picked out just for you that will reach you on the
+                                    morning of <strong>October 6, 2026</strong>. Something chosen to match your graceful
+                                    taste, to always remind you of how truly special you are to me.. I really hope
+                                    you'll love it!"
                                 </p>
-                                <div class="revealed-code">
-                                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:0.9em;height:0.9em;color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>
+                                <div class="revealed-code" data-i18n="gift_code">
+                                    <svg class="svg-icon" viewBox="0 0 24 24"
+                                        style="width:0.9em;height:0.9em;color:var(--accent-gold);">
+                                        <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                    </svg>
                                     MORNING SURPRISE • 06.10.2026
-                                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:0.9em;height:0.9em;color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>
+                                    <svg class="svg-icon" viewBox="0 0 24 24"
+                                        style="width:0.9em;height:0.9em;color:var(--accent-gold);">
+                                        <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                    </svg>
                                 </div>
-                                <button id="recloseGiftBtn" class="mini-reclose-btn">
+                                <button id="recloseGiftBtn" class="mini-reclose-btn" data-i18n="btn_reclose_gift">
                                     Reclose Box
-                                    <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                                 </button>
                             </div>
                         </div>
@@ -430,10 +576,14 @@
                     <div class="secret-flip-cards-container">
                         <div class="flip-cards-header">
                             <span class="flip-icon">
-                                <svg class="svg-icon stroke" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m14 13-2-2-2 2"/></svg>
+                                <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                    <path d="m14 13-2-2-2 2" />
+                                </svg>
                             </span>
-                            <h3>3 Special Cards for Rou</h3>
-                            <p>Sweet thoughts and heartfelt notes for your new year</p>
+                            <h3 data-i18n="flip_header_title">3 Special Cards for Rou</h3>
+                            <p data-i18n="flip_header_desc">Sweet thoughts and heartfelt notes for your new year</p>
                         </div>
 
                         <div class="flip-cards-grid">
@@ -442,19 +592,40 @@
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
                                         <div class="card-icon">
-                                            <svg class="svg-icon stroke" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m4.93 19.07 4.24-4.24"/><circle cx="12" cy="12" r="4"/></svg>
+                                            <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <path d="m4.93 4.93 4.24 4.24" />
+                                                <path d="m14.83 9.17 4.24-4.24" />
+                                                <path d="m14.83 14.83 4.24 4.24" />
+                                                <path d="m4.93 19.07 4.24-4.24" />
+                                                <circle cx="12" cy="12" r="4" />
+                                            </svg>
                                         </div>
-                                        <h4>The Day We Met</h4>
-                                        <p class="flip-hint">Click to read <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:0.85em;height:0.85em;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></p>
+                                        <h4 data-i18n="card1_front_title">The Day We Met</h4>
+                                        <p class="flip-hint" data-i18n="card_hint_front">Click to read <svg class="svg-icon stroke"
+                                                viewBox="0 0 24 24" style="width:0.85em;height:0.85em;">
+                                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                                <path d="M3 3v5h5" />
+                                            </svg></p>
                                         <span class="card-seal">R</span>
                                     </div>
                                     <div class="flip-card-back">
-                                        <span class="card-back-tag">
-                                            <svg class="svg-icon" viewBox="0 0 24 24" style="width:0.9em;height:0.9em;color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>
+                                        <span class="card-back-tag" data-i18n="card1_back_tag">
+                                            <svg class="svg-icon" viewBox="0 0 24 24"
+                                                style="width:0.9em;height:0.9em;color:var(--accent-gold);">
+                                                <path
+                                                    d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                            </svg>
                                             First Impression
                                         </span>
-                                        <p>"From the very first day we talked, I felt an effortless comfort and natural connection between us.. Over time, I knew having you in my life is one of the most beautiful coincidences, and I feel truly lucky to know you."</p>
-                                        <small class="flip-back-hint">Click to flip back <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:0.85em;height:0.85em;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></small>
+                                        <p data-i18n="card1_back_text">"From the very first day we talked, I felt an effortless comfort and natural
+                                            connection between us.. Over time, I knew having you in my life is one of
+                                            the most beautiful coincidences, and I feel truly lucky to know you."</p>
+                                        <small class="flip-back-hint" data-i18n="card_hint_back">Click to flip back <svg class="svg-icon stroke"
+                                                viewBox="0 0 24 24" style="width:0.85em;height:0.85em;">
+                                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                                <path d="M3 3v5h5" />
+                                            </svg></small>
                                     </div>
                                 </div>
                             </div>
@@ -464,19 +635,37 @@
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
                                         <div class="card-icon">
-                                            <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V12m4.5 0a4.5 4.5 0 1 1-4.5 4.5m4.5-4.5H12m-4.5 0a4.5 4.5 0 1 0 4.5 4.5m-4.5-4.5H12m0 4.5V21"/><circle cx="12" cy="12" r="2"/></svg>
+                                            <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V12m4.5 0a4.5 4.5 0 1 1-4.5 4.5m4.5-4.5H12m-4.5 0a4.5 4.5 0 1 0 4.5 4.5m-4.5-4.5H12m0 4.5V21" />
+                                                <circle cx="12" cy="12" r="2" />
+                                            </svg>
                                         </div>
-                                        <h4>Something You Might Not Notice</h4>
-                                        <p class="flip-hint">Click to read <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:0.85em;height:0.85em;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></p>
+                                        <h4 data-i18n="card2_front_title">Something You Might Not Notice</h4>
+                                        <p class="flip-hint" data-i18n="card_hint_front">Click to read <svg class="svg-icon stroke"
+                                                viewBox="0 0 24 24" style="width:0.85em;height:0.85em;">
+                                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                                <path d="M3 3v5h5" />
+                                            </svg></p>
                                         <span class="card-seal">R</span>
                                     </div>
                                     <div class="flip-card-back">
-                                        <span class="card-back-tag">
-                                            <svg class="svg-icon" viewBox="0 0 24 24" style="width:0.9em;height:0.9em;color:var(--accent-gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                        <span class="card-back-tag" data-i18n="card2_back_tag">
+                                            <svg class="svg-icon" viewBox="0 0 24 24"
+                                                style="width:0.9em;height:0.9em;color:var(--accent-gold);">
+                                                <polygon
+                                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                            </svg>
                                             Your Smile & Energy
                                         </span>
-                                        <p>"Your genuine smile, your positive energy, and the way you talk always leave a lasting warmth and can turn my entire day around in seconds. Nobody brings out a smile quite like you."</p>
-                                        <small class="flip-back-hint">Click to flip back <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:0.85em;height:0.85em;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></small>
+                                        <p data-i18n="card2_back_text">"Your genuine smile, your positive energy, and the way you talk always leave
+                                            a lasting warmth and can turn my entire day around in seconds. Nobody brings
+                                            out a smile quite like you."</p>
+                                        <small class="flip-back-hint" data-i18n="card_hint_back">Click to flip back <svg class="svg-icon stroke"
+                                                viewBox="0 0 24 24" style="width:0.85em;height:0.85em;">
+                                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                                <path d="M3 3v5h5" />
+                                            </svg></small>
                                     </div>
                                 </div>
                             </div>
@@ -486,19 +675,35 @@
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
                                         <div class="card-icon">
-                                            <svg class="svg-icon stroke" viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5z"/></svg>
+                                            <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5z" />
+                                            </svg>
                                         </div>
-                                        <h4>A Heartfelt Wish for You</h4>
-                                        <p class="flip-hint">Click to read <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:0.85em;height:0.85em;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></p>
+                                        <h4 data-i18n="card3_front_title">A Heartfelt Wish for You</h4>
+                                        <p class="flip-hint" data-i18n="card_hint_front">Click to read <svg class="svg-icon stroke"
+                                                viewBox="0 0 24 24" style="width:0.85em;height:0.85em;">
+                                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                                <path d="M3 3v5h5" />
+                                            </svg></p>
                                         <span class="card-seal">R</span>
                                     </div>
                                     <div class="flip-card-back">
-                                        <span class="card-back-tag">
-                                            <svg class="svg-icon" viewBox="0 0 24 24" style="width:0.9em;height:0.9em;color:var(--accent-gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                        <span class="card-back-tag" data-i18n="card3_back_tag">
+                                            <svg class="svg-icon" viewBox="0 0 24 24"
+                                                style="width:0.9em;height:0.9em;color:var(--accent-gold);">
+                                                <polygon
+                                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                            </svg>
                                             Our Wishes Together
                                         </span>
-                                        <p>"I wish you a year as pure and kind as your heart, where all your dreams come true, and where we continue to stay close, supporting and being there for each other at every step."</p>
-                                        <small class="flip-back-hint">Click to flip back <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:0.85em;height:0.85em;"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></small>
+                                        <p data-i18n="card3_back_text">"I wish you a year as pure and kind as your heart, where all your dreams come
+                                            true, and where we continue to stay close, supporting and being there for
+                                            each other at every step."</p>
+                                        <small class="flip-back-hint" data-i18n="card_hint_back">Click to flip back <svg class="svg-icon stroke"
+                                                viewBox="0 0 24 24" style="width:0.85em;height:0.85em;">
+                                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                                <path d="M3 3v5h5" />
+                                            </svg></small>
                                     </div>
                                 </div>
                             </div>
@@ -514,23 +719,37 @@
                             <div class="jar-neck"></div>
                             <div class="jar-body">
                                 <div class="jar-floating-hearts">
-                                    <span><svg class="svg-icon" viewBox="0 0 24 24" style="color:#ff4081;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
-                                    <span><svg class="svg-icon" viewBox="0 0 24 24" style="color:#ffd700;"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></span>
-                                    <span><svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:#ff80ab;"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V12m4.5 0a4.5 4.5 0 1 1-4.5 4.5m4.5-4.5H12m-4.5 0a4.5 4.5 0 1 0 4.5 4.5m-4.5-4.5H12m0 4.5V21"/><circle cx="12" cy="12" r="2"/></svg></span>
-                                    <span><svg class="svg-icon" viewBox="0 0 24 24" style="color:#64ffda;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                                    <span><svg class="svg-icon" viewBox="0 0 24 24" style="color:#ff4081;">
+                                            <path
+                                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg></span>
+                                    <span><svg class="svg-icon" viewBox="0 0 24 24" style="color:#ffd700;">
+                                            <path
+                                                d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                        </svg></span>
+                                    <span><svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:#ff80ab;">
+                                            <path
+                                                d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V12m4.5 0a4.5 4.5 0 1 1-4.5 4.5m4.5-4.5H12m-4.5 0a4.5 4.5 0 1 0 4.5 4.5m-4.5-4.5H12m0 4.5V21" />
+                                            <circle cx="12" cy="12" r="2" />
+                                        </svg></span>
+                                    <span><svg class="svg-icon" viewBox="0 0 24 24" style="color:#64ffda;">
+                                            <polygon
+                                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                        </svg></span>
                                 </div>
                                 <div class="jar-label">
-                                    <span>Jar of Sweet Thoughts for Rou <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.15em;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                                    <span data-i18n="jar_label">Jar of Sweet Thoughts for Rou ✉</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="jar-controls">
-                            <h3>Jar of Sweet Thoughts for Rou</h3>
-                            <p id="reasonQuoteDisplay" class="reason-quote-box">Click the button below to draw a sweet thought from the jar...</p>
+                            <h3 data-i18n="jar_title">Jar of Sweet Thoughts for Rou</h3>
+                            <p id="reasonQuoteDisplay" class="reason-quote-box" data-i18n="jar_initial">Click the button below to draw a sweet
+                                thought from the jar...</p>
                             <div class="jar-action-bar">
                                 <button id="drawReasonBtn" class="magic-btn primary-btn">
-                                    <span>Draw a Sweet Thought <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.15em;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                                    <span data-i18n="btn_draw_reason">Draw a Sweet Thought ✉</span>
                                 </button>
                                 <span id="reasonCounter" class="reason-counter">Drawn: 0 / 10</span>
                             </div>
@@ -550,17 +769,18 @@
                 <div class="section-hero">
                     <div class="moon-glow"></div>
                     <h2 class="starlit-title">
-                        <span>A Starlit Sky</span>
-                        <span class="highlight-rou">For Rou <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></span>
+                        <span data-i18n="stars_title">A Starlit Sky</span>
+                        <span class="highlight-rou" data-i18n="highlight_rou">For Rou ✨</span>
                     </h2>
-                    <p class="section-subtitle">A serene sky and constellation stars dedicated to the sweetest traits and moments with Rou</p>
+                    <p class="section-subtitle" data-i18n="stars_subtitle">A serene sky and constellation stars dedicated to the sweetest traits
+                        and moments with Rou</p>
                 </div>
 
                 <!-- Interactive Constellation Board -->
                 <div class="constellation-showcase">
                     <div class="constellation-header">
-                        <span class="constellation-badge">Rou's Constellation <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-                        <p>Click any star in the sky to reveal the hidden trait or wish:</p>
+                        <span class="constellation-badge" data-i18n="constellation_badge">Rou's Constellation ✨</span>
+                        <p data-i18n="constellation_hint">Click any star in the sky to reveal the hidden trait or wish:</p>
                     </div>
 
                     <div class="stars-constellation-map" id="constellationMap">
@@ -570,33 +790,61 @@
                         </svg>
 
                         <!-- Star Nodes -->
-                        <div class="star-node s1" data-title="Comfort & Peace" data-desc="The calming peace, ease, and warmth I feel every single time we talk." style="top: 25%; left: 18%;">
-                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-                            <span class="star-name">Comfort</span>
+                        <div class="star-node s1" data-title="Comfort & Peace"
+                            data-desc="The calming peace, ease, and warmth I feel every single time we talk."
+                            style="top: 25%; left: 18%;">
+                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg></span>
+                            <span class="star-name" data-i18n="star1_name">Comfort</span>
                         </div>
-                        <div class="star-node s2" data-title="Radiant Smile" data-desc="Your smile that effortlessly brightens the day and makes everything feel lighter." style="top: 15%; left: 48%;">
-                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-                            <span class="star-name">Smile</span>
+                        <div class="star-node s2" data-title="Radiant Smile"
+                            data-desc="Your smile that effortlessly brightens the day and makes everything feel lighter."
+                            style="top: 15%; left: 48%;">
+                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg></span>
+                            <span class="star-name" data-i18n="star2_name">Smile</span>
                         </div>
-                        <div class="star-node s3" data-title="Special Place" data-desc="That you hold a truly dear, irreplaceable place in my heart unlike anyone else." style="top: 35%; left: 78%;">
-                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-                            <span class="star-name">Special</span>
+                        <div class="star-node s3" data-title="Special Place"
+                            data-desc="That you hold a truly dear, irreplaceable place in my heart unlike anyone else."
+                            style="top: 35%; left: 78%;">
+                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg></span>
+                            <span class="star-name" data-i18n="star3_name">Special</span>
                         </div>
-                        <div class="star-node s4" data-title="Genuine Soul" data-desc="Your kind soul, genuine loyalty, and always being there when it matters." style="top: 70%; left: 32%;">
-                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-                            <span class="star-name">Genuine</span>
+                        <div class="star-node s4" data-title="Genuine Soul"
+                            data-desc="Your kind soul, genuine loyalty, and always being there when it matters."
+                            style="top: 70%; left: 32%;">
+                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg></span>
+                            <span class="star-name" data-i18n="star4_name">Genuine</span>
                         </div>
-                        <div class="star-node s5" data-title="Wishes for Us" data-desc="A beautiful new year ahead where we stay close and always have each other's back." style="top: 68%; left: 66%;">
-                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-                            <span class="star-name">Wishes</span>
+                        <div class="star-node s5" data-title="Wishes for Us"
+                            data-desc="A beautiful new year ahead where we stay close and always have each other's back."
+                            style="top: 68%; left: 66%;">
+                            <span class="star-dot"><svg class="svg-icon" viewBox="0 0 24 24">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg></span>
+                            <span class="star-name" data-i18n="star5_name">Wishes</span>
                         </div>
                     </div>
 
                     <div class="star-info-modal" id="starInfoModal">
                         <div class="star-info-content">
-                            <span class="star-modal-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></span>
-                            <h4 id="starModalTitle">Click a star to reveal what it holds for you</h4>
-                            <p id="starModalDesc">Each star reflects a special trait or sweet wish dedicated to Rou on her birthday.</p>
+                            <span class="star-modal-icon"><svg class="svg-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                </svg></span>
+                            <h4 id="starModalTitle" data-i18n="star_modal_title">Click a star to reveal what it holds for you</h4>
+                            <p id="starModalDesc" data-i18n="star_modal_desc">Each star reflects a special trait or sweet wish dedicated to Rou on
+                                her birthday.</p>
                         </div>
                     </div>
                 </div>
@@ -606,8 +854,8 @@
                     <div class="player-left-cassette">
                         <div class="cassette-tape">
                             <div class="cassette-label">
-                                <span class="tape-title">Rou's Birthday Melodies <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
-                                <span class="tape-subtitle">Birthday Edition • 06.10.2026</span>
+                                <span class="tape-title" data-i18n="cassette_tape_title">Rou's Birthday Melodies 🎵</span>
+                                <span class="tape-subtitle" data-i18n="cassette_tape_subtitle">Birthday Edition • 06.10.2026</span>
                             </div>
                             <div class="cassette-wheels">
                                 <div class="wheel wheel-left" id="wheelLeft"></div>
@@ -620,9 +868,9 @@
                     </div>
 
                     <div class="player-right-info">
-                        <span class="track-status" id="trackStatus">Ready to Play <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
-                        <h3 class="track-title">Happy Birthday Lullaby (For Rou)</h3>
-                        <p class="track-artist">Dedicated to Rou on her special day</p>
+                        <span class="track-status" id="trackStatus" data-i18n="track_status_ready">Ready to Play 🎵</span>
+                        <h3 class="track-title" data-i18n="track_title">Happy Birthday Lullaby (For Rou)</h3>
+                        <p class="track-artist" data-i18n="track_artist">Dedicated to Rou on her special day</p>
 
                         <!-- Equalizer Animation Bars -->
                         <div class="equalizer-bars" id="equalizerBars">
@@ -633,39 +881,47 @@
                         <!-- Music Controls -->
                         <div class="player-controls">
                             <button class="track-ctrl-btn" id="rewindBtn" title="Rewind">
-                                <svg class="svg-icon stroke" viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+                                <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                    <polygon points="19 20 9 12 19 4 19 20" />
+                                    <line x1="5" y1="19" x2="5" y2="5" />
+                                </svg>
                             </button>
                             <button class="track-play-btn" id="mainPlayBtn" title="Play / Pause">
                                 <span id="mainPlayIcon">
-                                    <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                    <svg class="svg-icon" viewBox="0 0 24 24">
+                                        <polygon points="5 3 19 12 5 21 5 3" />
+                                    </svg>
                                 </span>
                             </button>
                             <button class="track-ctrl-btn" id="forwardBtn" title="Next Melody">
-                                <svg class="svg-icon stroke" viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                                <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                    <polygon points="5 4 15 12 5 20 5 4" />
+                                    <line x1="19" y1="5" x2="19" y2="19" />
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="track-live-lyrics" id="trackLyrics">
-                            "Wishing you a peaceful, bright, and cheerful birthday, Rou..." <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>
+                        <div class="track-live-lyrics" id="trackLyrics" data-i18n="track_lyrics">
+                            "Wishing you a peaceful, bright, and cheerful birthday, Rou..." ✨
                         </div>
                     </div>
                 </div>
 
                 <!-- Counter of Special Moments -->
                 <div class="moments-counter-card">
-                    <h3>Special Moments & Cherished Memories <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></h3>
+                    <h3 data-i18n="moments_title">Special Moments & Cherished Memories ✨</h3>
                     <div class="counter-display-grid">
                         <div class="counter-box">
-                            <span class="counter-num" id="counterDays">365+</span>
-                            <span class="counter-label">Days of wonderful moments & conversations together</span>
+                            <span class="counter-num" id="counterDays" data-i18n="m1_num">365+</span>
+                            <span class="counter-label" data-i18n="m1_lbl">Days of wonderful moments & conversations together</span>
                         </div>
                         <div class="counter-box">
-                            <span class="counter-num">8,760+</span>
-                            <span class="counter-label">Hours of your beautiful presence leaving a mark in my life</span>
+                            <span class="counter-num" data-i18n="m2_num">8,760+</span>
+                            <span class="counter-label" data-i18n="m2_lbl">Hours of your beautiful presence leaving a mark in my life</span>
                         </div>
                         <div class="counter-box">
                             <span class="counter-num">∞</span>
-                            <span class="counter-label">Endless care, warmth & special appreciation for Rou</span>
+                            <span class="counter-label" data-i18n="m3_lbl">Endless care, warmth & special appreciation for Rou</span>
                         </div>
                     </div>
                 </div>
@@ -683,6 +939,8 @@
     <!-- Real-time Interaction Tracker & Config -->
     <script src="tracker_config.js"></script>
     <script src="tracker.js"></script>
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

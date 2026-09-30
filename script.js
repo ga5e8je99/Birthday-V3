@@ -18,13 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================================
     let currentTheme = 'theme-rose';
     let isMusicPlaying = false;
+    let hasMusicStarted = false;
     let audioContext = null;
     let melodyInterval = null;
+    let candleBlown = false;
+    let hasDrawnReason = false;
+    let currentReasonIndex = 0;
+    let reasonsList = (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons.en) || [];
+    let currentLang = localStorage.getItem('rou_birthday_lang') || 'en';
 
     const navTabs = document.querySelectorAll('.nav-tab-btn');
     const viewSections = document.querySelectorAll('.view-section');
     const audioToggleBtn = document.getElementById('musicToggleBtn');
     const bgAudioElement = document.getElementById('backgroundMusic');
+    const langToggleBtn = document.getElementById('langToggleBtn');
+    const langBtnText = document.getElementById('langBtnText');
 
     // Tab Switching
     navTabs.forEach(tab => {
@@ -69,6 +77,131 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===================================================================
+    // BILINGUAL TRANSLATION SYSTEM (English ⇄ Arabic)
+    // ===================================================================
+    function applyLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('rou_birthday_lang', lang);
+
+        document.documentElement.lang = lang;
+        document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
+
+        const t = window.RouTranslations && window.RouTranslations[lang];
+        if (!t) return;
+
+        if (langBtnText) {
+            langBtnText.textContent = t.lang_btn_text;
+        }
+        if (langToggleBtn) {
+            langToggleBtn.title = t.lang_btn_title;
+            langToggleBtn.setAttribute('aria-label', t.lang_btn_title);
+        }
+
+        // Update all elements with data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key] !== undefined) {
+                el.innerHTML = t[key];
+            }
+        });
+
+        // 1. Candle & Cake state
+        const blowBtn = document.getElementById('blowCandleBtn');
+        const cakeInstr = document.getElementById('cakeInstruction');
+        if (candleBlown) {
+            if (blowBtn) {
+                blowBtn.innerHTML = `<span><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${t.btn_candle_blown}</span>`;
+            }
+            if (cakeInstr) {
+                cakeInstr.innerHTML = `<strong><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${t.cake_instruction_done}</strong>`;
+            }
+        }
+
+        // 2. Vouchers state
+        document.querySelectorAll('.voucher-card').forEach(card => {
+            const btn = card.querySelector('.voucher-btn');
+            if (card.classList.contains('redeemed') && btn) {
+                btn.innerHTML = `
+                    <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.1em;height:1.1em;color:#2ecc71;">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>${t.btn_redeemed}</span>
+                `;
+            }
+        });
+
+        // 3. Reasons Jar
+        if (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons[lang]) {
+            reasonsList = window.RouTranslations.reasons[lang];
+        }
+        const qDisplay = document.getElementById('reasonQuoteDisplay');
+        const rCounter = document.getElementById('reasonCounter');
+        if (hasDrawnReason && qDisplay) {
+            qDisplay.innerHTML = `"${reasonsList[currentReasonIndex]}" <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);width:1em;height:1em;vertical-align:-0.15em;"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>`;
+            if (rCounter) {
+                rCounter.textContent = `${t.reason_drawn_label}: ${currentReasonIndex + 1} / ${reasonsList.length}`;
+            }
+        } else if (rCounter) {
+            rCounter.textContent = `${t.reason_drawn_label}: 0 / ${reasonsList.length}`;
+        }
+
+        // 4. Constellation stars
+        const starKeys = ['s1', 's2', 's3', 's4', 's5'];
+        starKeys.forEach(key => {
+            const node = document.querySelector(`.star-node.${key}`);
+            const starData = window.RouTranslations?.stars?.[key]?.[lang];
+            if (node && starData) {
+                node.setAttribute('data-title', starData.title);
+                node.setAttribute('data-desc', starData.desc);
+            }
+        });
+        const activeStar = document.querySelector('.star-node.active');
+        const smTitle = document.getElementById('starModalTitle');
+        const smDesc = document.getElementById('starModalDesc');
+        if (activeStar) {
+            const title = activeStar.getAttribute('data-title');
+            const desc = activeStar.getAttribute('data-desc');
+            if (smTitle) {
+                smTitle.innerHTML = `<svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);width:1.2em;height:1.2em;vertical-align:-0.2em;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> ${title}`;
+            }
+            if (smDesc) {
+                smDesc.textContent = desc;
+            }
+        }
+
+        // 5. Track status in music lounge
+        const tStatus = document.getElementById('trackStatus');
+        if (tStatus) {
+            if (isMusicPlaying) {
+                tStatus.innerHTML = `${t.track_status_playing} <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
+            } else if (hasMusicStarted) {
+                tStatus.textContent = lang === 'ar' ? 'متوقف مؤقتاً' : 'Paused';
+            } else {
+                tStatus.innerHTML = `${t.track_status_ready} <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
+            }
+        }
+
+        // 6. Countdown check if expired
+        if (typeof updateCountdown === 'function') {
+            updateCountdown();
+        }
+    }
+
+    if (langToggleBtn) {
+        langToggleBtn.addEventListener('click', () => {
+            const nextLang = currentLang === 'en' ? 'ar' : 'en';
+            applyLanguage(nextLang);
+            if (window.RouTracker) {
+                window.RouTracker.track('language_switched', {
+                    lang: nextLang,
+                    title: `Switched language to ${nextLang.toUpperCase()}`
+                });
+            }
+            playSparkleTone();
+        });
+    }
+
+    // ===================================================================
     // BIRTHDAY COUNTDOWN TO OCTOBER 6, 2026 (FOR ROU)
     // ===================================================================
     const targetBirthday = new Date('2026-10-06T00:00:00');
@@ -84,7 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (diff <= 0) {
             if (mainCountdown) {
-                mainCountdown.innerHTML = '<div style="font-size: 1.25rem; font-weight: 800; color: #ffeb3b; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> Today is October 6th! Happy Birthday to the radiant Rou! <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></div>';
+                const t = window.RouTranslations && window.RouTranslations[currentLang];
+                const expiredMsg = t ? t.cd_expired : 'Today is October 6th! Happy Birthday to the radiant Rou! ✨';
+                mainCountdown.innerHTML = `<div style="font-size: 1.25rem; font-weight: 800; color: #ffeb3b; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${expiredMsg} <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></div>`;
             }
             return;
         }
@@ -249,7 +384,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Candle Extinguish Interaction
-    let candleBlown = false;
     function extinguishCandle() {
         if (candleBlown) return;
         candleBlown = true;
@@ -263,9 +397,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         blowCandleBtn.style.opacity = '0.5';
         blowCandleBtn.disabled = true;
-        blowCandleBtn.innerHTML = '<span><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> Candle Blown & Wish Made!</span>';
+        const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+        blowCandleBtn.innerHTML = `<span><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${t.btn_candle_blown || 'Candle Blown & Wish Made!'}</span>`;
 
-        cakeInstruction.innerHTML = '<strong><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> Happy Birthday Rou! May all your wishes come true in a blessed new year! ✨</strong>';
+        cakeInstruction.innerHTML = `<strong><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${t.cake_instruction_done || 'Happy Birthday Rou! May all your wishes come true in a blessed new year! ✨'}</strong>`;
 
         // Play festive chime
         playCelebrationTone();
@@ -394,11 +529,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 if (btn) {
+                    const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
                     btn.innerHTML = `
                         <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1.1em;height:1.1em;color:#2ecc71;">
                             <polyline points="20 6 9 17 4 12"/>
                         </svg>
-                        <span>Voucher Redeemed Successfully!</span>
+                        <span>${t.btn_redeemed || 'Voucher Redeemed Successfully!'}</span>
                     `;
                 }
                 playSparkleTone();
@@ -457,20 +593,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Reasons Jar Logic
-    const reasonsList = [
-        "Your smile that effortlessly brightens up the whole day and turns my mood around.",
-        "Your kind, generous heart that reminds me there are still truly genuine people in this world.",
-        "The wonderful peace and comfort I feel every single time we talk without any barriers.",
-        "The thoughtful little details you notice that nobody else ever pays attention to.",
-        "The captivating way you talk and the sparkle in your eyes whenever you're excited about something you love.",
-        "The way you intuitively understand and listen to me, even when I don't say much.",
-        "Your radiant positive energy that leaves an unforgettable warmth wherever you go.",
-        "Your graceful taste and personal touch that make everything about you stand out.",
-        "Because you are so sincere and pure—finding someone with your spirit is truly rare.",
-        "Because you are Rou.. someone who holds a genuinely special and irreplaceable place in my life."
-    ];
-
-    let currentReasonIndex = 0;
     const drawReasonBtn = document.getElementById('drawReasonBtn');
     const quoteDisplay = document.getElementById('reasonQuoteDisplay');
     const reasonCounter = document.getElementById('reasonCounter');
@@ -478,6 +600,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (drawReasonBtn) {
         drawReasonBtn.addEventListener('click', () => {
+            if (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons[currentLang]) {
+                reasonsList = window.RouTranslations.reasons[currentLang];
+            }
+            hasDrawnReason = true;
             currentReasonIndex = (currentReasonIndex + 1) % reasonsList.length;
             const currentQuote = reasonsList[currentReasonIndex];
 
@@ -498,7 +624,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 quoteDisplay.innerHTML = `"${currentQuote}" <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);width:1em;height:1em;vertical-align:-0.15em;"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg>`;
                 quoteDisplay.style.opacity = '1';
                 quoteDisplay.style.transform = 'translateY(0)';
-                reasonCounter.textContent = `Drawn: ${currentReasonIndex + 1} / ${reasonsList.length}`;
+                const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+                const drawnLabel = t.reason_drawn_label || 'Drawn';
+                reasonCounter.textContent = `${drawnLabel}: ${currentReasonIndex + 1} / ${reasonsList.length}`;
                 if (window.RouTracker) {
                     window.RouTracker.track('jar_drawn', {
                         title: `Thought #${currentReasonIndex + 1} Drawn`,
@@ -599,14 +727,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startMusicPlayback() {
         isMusicPlaying = true;
+        hasMusicStarted = true;
         if (audioToggleBtn) audioToggleBtn.classList.add('playing');
         if (cassette) cassette.classList.add('playing');
         if (equalizer) equalizer.classList.add('active');
         if (mainPlayIcon) {
             mainPlayIcon.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
         }
+        const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
         if (trackStatus) {
-            trackStatus.innerHTML = 'Now Playing for Rou <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+            trackStatus.innerHTML = `${t.track_status_playing || 'Now Playing for Rou'} <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
         }
 
         stopSynthesizedMelody();
@@ -633,7 +763,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mainPlayIcon.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
         }
         if (trackStatus) {
-            trackStatus.textContent = 'Paused';
+            trackStatus.textContent = currentLang === 'ar' ? 'متوقف مؤقتاً' : 'Paused';
         }
 
         if (bgAudioElement) {
@@ -740,5 +870,8 @@ document.addEventListener('DOMContentLoaded', () => {
             melodyInterval = null;
         }
     }
+
+    // Initialize Language
+    applyLanguage(currentLang);
 
 });

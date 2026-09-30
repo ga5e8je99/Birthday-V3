@@ -275,6 +275,48 @@ body {
     box-shadow: 0 4px 15px var(--accent-glow);
 }
 
+.nav-controls-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--accent-gold);
+    border-radius: 20px;
+    padding: 7px 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-family: var(--font-ar), var(--font-en);
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    white-space: nowrap;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--accent-gold);
+    transform: scale(1.05);
+    box-shadow: 0 0 14px rgba(248, 208, 112, 0.35);
+}
+
+.lang-btn .lang-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.lang-btn .lang-text {
+    line-height: 1;
+}
+
 .audio-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -509,16 +551,24 @@ body {
     text-align: center;
     cursor: pointer;
     perspective: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .envelope-box {
+    --env-w: 320px;
+    --env-h: 220px;
+    --seal-sz: 52px;
     position: relative;
-    width: 320px;
-    height: 220px;
+    width: var(--env-w);
+    height: var(--env-h);
     margin: 0 auto;
     background: #e9ded4;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 192, 203, 0.2);
+    border-radius: 14px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 192, 203, 0.2);
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -530,7 +580,7 @@ body {
     position: absolute;
     inset: 0;
     background: #d8c8ba;
-    border-radius: 12px;
+    border-radius: 14px;
 }
 
 .envelope-flap {
@@ -539,10 +589,10 @@ body {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 160px solid transparent;
-    border-right: 160px solid transparent;
-    border-top: 120px solid #c9b4a4;
-    transform-origin: top;
+    border-left: calc(var(--env-w) / 2) solid transparent;
+    border-right: calc(var(--env-w) / 2) solid transparent;
+    border-top: calc(var(--env-h) * 0.55) solid #c9b4a4;
+    transform-origin: top center;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 4;
 }
@@ -558,24 +608,24 @@ body {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 160px solid #eedfd4;
-    border-right: 160px solid #eedfd4;
-    border-bottom: 120px solid #dfcfc2;
-    border-top: 100px solid transparent;
-    border-radius: 0 0 12px 12px;
+    border-left: calc(var(--env-w) / 2) solid #eedfd4;
+    border-right: calc(var(--env-w) / 2) solid #eedfd4;
+    border-bottom: calc(var(--env-h) * 0.55) solid #dfcfc2;
+    border-top: calc(var(--env-h) * 0.45) solid transparent;
+    border-radius: 0 0 14px 14px;
     z-index: 3;
 }
 
 .wax-seal {
     position: absolute;
-    top: 95px;
+    top: calc(var(--env-h) * 0.55 - var(--seal-sz) / 2);
     left: 50%;
     transform: translateX(-50%);
-    width: 52px;
-    height: 52px;
+    width: var(--seal-sz);
+    height: var(--seal-sz);
     background: radial-gradient(circle at 30% 30%, #ff5277, #991032);
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -585,7 +635,7 @@ body {
 
 .wax-seal .seal-letter {
     font-family: var(--font-serif);
-    font-size: 1.6rem;
+    font-size: calc(var(--seal-sz) * 0.5);
     font-weight: 700;
     color: #ffeef2;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -598,10 +648,10 @@ body {
 
 .letter-preview {
     position: absolute;
-    top: 25px;
-    left: 20px;
-    right: 20px;
-    height: 160px;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
     background: #fffdf9;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -616,7 +666,7 @@ body {
 }
 
 .envelope-box.open .letter-preview {
-    transform: translateY(-90px);
+    transform: translateY(calc(-1 * var(--env-h) * 0.42));
 }
 
 .pulse-hint {
@@ -2355,6 +2405,169 @@ body {
 }
 
 /* ===================================================================
+   RTL MODE (ARABIC LANGUAGE SUPPORT)
+   =================================================================== */
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+    font-family: var(--font-ar), var(--font-en), sans-serif;
+}
+
+html[dir="rtl"] .top-nav-container {
+    direction: rtl;
+}
+
+html[dir="rtl"] .nav-tabs {
+    direction: rtl;
+}
+
+html[dir="rtl"] .script-title {
+    font-family: var(--font-ar);
+    font-weight: 900;
+    direction: rtl;
+    letter-spacing: normal;
+}
+
+html[dir="rtl"] .letter-salutation {
+    font-family: var(--font-ar);
+    font-weight: 800;
+    direction: rtl;
+}
+
+html[dir="rtl"] .letter-body {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .letter-sign {
+    font-family: var(--font-ar);
+    font-weight: 800;
+    font-size: 1.35rem;
+    direction: rtl;
+}
+
+html[dir="rtl"] .letter-quote {
+    border-left: none;
+    border-right: 4px solid var(--primary-color);
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .countdown-grid {
+    direction: ltr; /* Timer stays LTR */
+}
+
+html[dir="rtl"] .countdown-label {
+    direction: rtl;
+}
+
+html[dir="rtl"] .vouchers-grid {
+    direction: rtl;
+}
+
+html[dir="rtl"] .voucher-card {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .voucher-header {
+    direction: rtl;
+}
+
+html[dir="rtl"] .voucher-desc {
+    text-align: right;
+}
+
+html[dir="rtl"] .giftbox-header {
+    text-align: center;
+}
+
+html[dir="rtl"] .revealed-header {
+    text-align: center;
+}
+
+html[dir="rtl"] .revealed-text {
+    text-align: center;
+}
+
+html[dir="rtl"] .flip-cards-header {
+    text-align: center;
+}
+
+html[dir="rtl"] .flip-card-front,
+html[dir="rtl"] .flip-card-back {
+    direction: rtl;
+    text-align: center;
+}
+
+html[dir="rtl"] .flip-card-back p {
+    text-align: center;
+}
+
+html[dir="rtl"] .jar-interactive-card {
+    direction: rtl;
+}
+
+html[dir="rtl"] .jar-controls {
+    text-align: center;
+}
+
+html[dir="rtl"] .jar-action-bar {
+    justify-content: center;
+}
+
+html[dir="rtl"] .reason-quote-box {
+    direction: rtl;
+    text-align: center;
+}
+
+html[dir="rtl"] .starlit-container {
+    direction: rtl;
+}
+
+html[dir="rtl"] .constellation-header {
+    text-align: center;
+}
+
+html[dir="rtl"] .star-info-modal {
+    direction: rtl;
+    text-align: center;
+}
+
+html[dir="rtl"] .music-lounge-card {
+    direction: rtl;
+}
+
+html[dir="rtl"] .player-right-info {
+    text-align: center;
+}
+
+html[dir="rtl"] .track-title,
+html[dir="rtl"] .track-artist,
+html[dir="rtl"] .track-status,
+html[dir="rtl"] .track-live-lyrics,
+html[dir="rtl"] .tape-title,
+html[dir="rtl"] .tape-subtitle {
+    direction: rtl;
+    text-align: center;
+}
+
+html[dir="rtl"] .equalizer-bars,
+html[dir="rtl"] .player-controls {
+    direction: ltr;
+    justify-content: center;
+}
+
+html[dir="rtl"] .moments-counter-card {
+    direction: rtl;
+    text-align: center;
+}
+
+html[dir="rtl"] .counter-box {
+    text-align: center;
+}
+
+/* ===================================================================
    RESPONSIVE DESIGN SYSTEM (ALL DEVICES: PHONES, TABLETS, LAPTOPS)
    =================================================================== */
 
@@ -2376,6 +2589,19 @@ body {
     .music-lounge-card {
         padding: 30px 20px;
         gap: 25px;
+    }
+}
+
+@media (max-width: 960px) {
+    .tab-label .label-full {
+        display: none !important;
+    }
+    .tab-label .label-short {
+        display: inline !important;
+        font-weight: 700;
+    }
+    .nav-brand {
+        font-size: 0.88rem;
     }
 }
 
@@ -2502,7 +2728,8 @@ body {
     }
 
     /* Experience 1: Welcome & Countdown */
-    .royal-welcome-card {
+    .glass-card,
+    .welcome-card {
         padding: 35px 20px;
         border-radius: 24px;
     }
@@ -2531,25 +2758,16 @@ body {
         font-size: 0.7rem;
     }
 
-    .c-colon {
+    .c-sep {
         font-size: 1.4rem;
+        font-weight: 700;
     }
 
     /* Step 2: 3D Wax Seal Envelope */
     .envelope-box {
-        width: 280px;
-        height: 195px;
-    }
-
-    .envelope-flap {
-        border-left-width: 140px;
-        border-right-width: 140px;
-        border-top-width: 105px;
-    }
-
-    .wax-seal-btn {
-        width: 54px;
-        height: 54px;
+        --env-w: 280px;
+        --env-h: 195px;
+        --seal-sz: 48px;
     }
 
     /* Step 3: Parchment Letter */
@@ -2569,27 +2787,19 @@ body {
         margin-bottom: 14px;
     }
 
-    .letter-sign-off {
-        font-size: 1.15rem;
+    .letter-sign {
+        font-size: 1.55rem;
     }
 
     /* Step 4: Interactive Cake */
-    .interactive-cake-card {
-        padding: 30px 16px;
+    .cake-showcase-card {
+        padding: 30px 18px;
         border-radius: 24px;
     }
 
-    .cake-structure {
-        transform: scale(0.9);
+    .cake-assembly {
+        transform: scale(0.88);
         transform-origin: bottom center;
-    }
-
-    .plate-top {
-        width: 250px;
-    }
-
-    .stand-base {
-        width: 130px;
     }
 
     .celebration-wishes-box {
@@ -2653,7 +2863,7 @@ body {
     .flip-card-wrapper {
         width: 100%;
         max-width: 320px;
-        height: 205px;
+        height: 215px;
     }
 
     /* Experience 2: Reasons Jar */
@@ -2664,12 +2874,13 @@ body {
         text-align: center;
     }
 
-    .jar-quote-display {
-        min-height: 110px;
-        padding: 18px 14px;
+    .jar-graphic {
+        margin: 0 auto;
     }
 
-    .jar-quote-display p {
+    .reason-quote-box {
+        min-height: 100px;
+        padding: 18px 14px;
         font-size: 1.05rem;
     }
 
@@ -2680,6 +2891,14 @@ body {
 
     .stars-constellation-map {
         height: 290px;
+    }
+
+    .star-node {
+        transform: translate(-50%, -50%);
+    }
+
+    .star-node:hover {
+        transform: translate(-50%, -50%) scale(1.25);
     }
 
     .star-node .star-name {
@@ -2721,12 +2940,16 @@ body {
         font-size: 1.35rem;
     }
 
-    .cassette-controls {
+    .player-controls {
         justify-content: center;
     }
 
     .equalizer-bars {
         justify-content: center;
+    }
+
+    .track-live-lyrics {
+        text-align: center;
     }
 
     /* Experience 3: Moments Counter */
@@ -2752,7 +2975,7 @@ body {
 /* 3. STANDARD MOBILE PHONES (<= 480px) */
 @media (max-width: 480px) {
     .top-nav-container {
-        width: calc(100% - 14px);
+        width: min(calc(100% - 12px), 430px);
         top: 8px;
         padding: 4px 6px;
         border-radius: 35px;
@@ -2765,7 +2988,7 @@ body {
 
     .nav-tab-btn {
         padding: 5px 6px;
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         gap: 3px;
         border-radius: 18px;
     }
@@ -2787,29 +3010,36 @@ body {
 
     .main-content-wrapper {
         padding-top: 68px;
-        padding-bottom: 25px;
+        padding-bottom: 30px;
+        align-items: flex-start;
     }
 
     .view-section {
         padding: 6px 4px;
+        margin: auto 0;
     }
 
     /* Hero & Countdown */
     .script-title {
-        font-size: 2.3rem;
+        font-size: clamp(2rem, 7.5vw, 2.5rem);
+        line-height: 1.25;
+        word-break: break-word;
     }
 
-    .royal-welcome-card {
-        padding: 28px 14px;
+    .glass-card,
+    .welcome-card {
+        padding: 26px 14px;
         border-radius: 20px;
     }
 
-    .welcome-subtitle {
+    .welcome-lead {
         font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
     }
 
     .countdown-widget {
-        padding: 10px 6px;
+        padding: 12px 6px;
         border-radius: 14px;
         margin: 14px auto 18px;
     }
@@ -2824,50 +3054,37 @@ body {
     }
 
     .c-unit {
-        min-width: 42px;
-        padding: 5px 4px;
+        min-width: 44px;
+        padding: 5px 3px;
         border-radius: 8px;
     }
 
     .c-val {
-        font-size: 1.15rem;
+        font-size: 1.2rem;
     }
 
     .c-lbl {
-        font-size: 0.62rem;
+        font-size: 0.64rem;
     }
 
-    .c-colon {
-        font-size: 1.1rem;
+    .c-sep {
+        font-size: 1.2rem;
+        font-weight: 700;
     }
 
     /* Buttons */
     .magic-btn {
-        padding: 12px 22px;
+        padding: 12px 20px;
         font-size: 0.92rem;
         width: 100%;
-        max-width: 280px;
+        max-width: 290px;
     }
 
     /* Envelope */
     .envelope-box {
-        width: 250px;
-        height: 170px;
-    }
-
-    .envelope-flap {
-        border-left-width: 125px;
-        border-right-width: 125px;
-        border-top-width: 90px;
-    }
-
-    .wax-seal-btn {
-        width: 48px;
-        height: 48px;
-    }
-
-    .seal-inner {
-        font-size: 1.25rem;
+        --env-w: 250px;
+        --env-h: 175px;
+        --seal-sz: 42px;
     }
 
     /* Parchment Letter */
@@ -2876,8 +3093,14 @@ body {
         border-radius: 18px;
     }
 
+    .letter-header {
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        gap: 8px;
+    }
+
     .letter-salutation {
-        font-size: 1.2rem;
+        font-size: 1.22rem;
     }
 
     .letter-body p {
@@ -2886,27 +3109,62 @@ body {
         margin-bottom: 12px;
     }
 
+    .letter-quote {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    .letter-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+    }
+
+    .letter-sign {
+        font-size: 1.45rem;
+        justify-content: center;
+    }
+
+    #proceedToCakeBtn {
+        width: 100%;
+        max-width: 280px;
+    }
+
     /* Cake */
-    .cake-structure {
-        transform: scale(0.78);
+    .cake-showcase-card {
+        padding: 24px 14px;
+        border-radius: 20px;
+    }
+
+    .cake-assembly {
+        transform: scale(0.76);
         transform-origin: bottom center;
     }
 
     .cake-stage {
-        min-height: 240px;
+        min-height: 230px;
+        margin: 15px auto 20px;
     }
 
     .main-celebrate-title {
-        font-size: 1.6rem;
+        font-size: clamp(1.4rem, 6vw, 1.8rem);
     }
 
     .cake-instruction {
-        font-size: 0.92rem;
+        font-size: 0.88rem;
+        text-align: center;
+    }
+
+    .blow-action-container .candle-action-btn {
+        width: 100%;
+        max-width: 280px;
     }
 
     /* Vouchers */
     .voucher-card {
-        padding: 20px 14px 18px;
+        max-width: 320px;
+        padding: 18px 14px;
         border-radius: 16px;
     }
 
@@ -2930,6 +3188,11 @@ body {
     }
 
     /* 3D Gift Box */
+    .giftbox-showcase-card {
+        padding: 24px 14px;
+        border-radius: 20px;
+    }
+
     .giftbox-stage {
         min-height: 190px;
     }
@@ -2942,6 +3205,10 @@ body {
         transform: scale(0.95);
     }
 
+    .gift-revealed-card {
+        padding: 20px 14px;
+    }
+
     .revealed-text {
         font-size: 0.92rem;
         line-height: 1.75;
@@ -2949,7 +3216,8 @@ body {
 
     /* Flip Cards */
     .flip-card-wrapper {
-        height: 195px;
+        max-width: 310px;
+        height: 215px;
     }
 
     .flip-card-front,
@@ -2967,8 +3235,20 @@ body {
     }
 
     /* Reasons Jar */
-    .jar-graphic-wrap {
+    .jar-graphic {
         transform: scale(0.85);
+        margin: 0 auto;
+    }
+
+    .jar-interactive-card {
+        padding: 22px 14px;
+        gap: 16px;
+    }
+
+    .reason-quote-box {
+        font-size: 0.95rem;
+        min-height: 85px;
+        padding: 14px;
     }
 
     .draw-btn {
@@ -2992,6 +3272,11 @@ body {
     }
 
     /* Cassette Player */
+    .music-lounge-card {
+        padding: 22px 14px;
+        gap: 20px;
+    }
+
     .cassette-tape {
         max-width: 260px;
         height: 160px;
@@ -3014,6 +3299,11 @@ body {
 
     .track-title {
         font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .player-controls {
+        justify-content: center;
     }
 
     .track-ctrl-btn {
@@ -3026,7 +3316,16 @@ body {
         height: 48px;
     }
 
+    .track-live-lyrics {
+        text-align: center;
+        font-size: 0.88rem;
+    }
+
     /* Moments Counter */
+    .moments-counter-card {
+        padding: 20px 14px;
+    }
+
     .counter-display-grid {
         flex-direction: column;
         gap: 10px;
@@ -3063,18 +3362,27 @@ body {
     }
 
     .envelope-box {
-        width: 220px;
-        height: 150px;
+        --env-w: 220px;
+        --env-h: 155px;
+        --seal-sz: 38px;
     }
 
-    .envelope-flap {
-        border-left-width: 110px;
-        border-right-width: 110px;
-        border-top-width: 80px;
+    .cake-assembly {
+        transform: scale(0.66);
+        transform-origin: bottom center;
     }
 
-    .cake-structure {
-        transform: scale(0.7);
+    .cake-stage {
+        min-height: 200px;
+    }
+
+    .voucher-card {
+        max-width: 290px;
+    }
+
+    .flip-card-wrapper {
+        max-width: 290px;
+        height: 225px;
     }
 }
 
@@ -3089,7 +3397,7 @@ body {
     }
 
     .star-node:hover {
-        transform: none;
+        transform: translate(-50%, -50%);
     }
 
     .voucher-card:hover {
@@ -3112,7 +3420,7 @@ body {
         min-height: 220px;
     }
 
-    .cake-structure {
-        transform: scale(0.75);
+    .cake-assembly {
+        transform: scale(0.72);
     }
 }
