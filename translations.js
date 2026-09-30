@@ -70,11 +70,11 @@ window.RouTranslations = {
         v2_desc: 'One wish, favor, or request of your choice granted anytime you wish, with zero conditions attached. Use it whenever you please.',
         v2_stamp: 'Ready to Fulfill! 🪄',
 
-        v3_serial: 'PASS #03 • 24/7 HOTLINE',
-        v3_badge: 'Emergency 24/7',
-        v3_title: 'Heart-to-Heart & Listening 24/7',
-        v3_desc: 'A late-night call, a safe space to vent, or just someone to listen whenever life feels heavy.. I’m always here and ready to turn your mood around.',
-        v3_stamp: 'Line Always Open 📞',
+        v3_serial: 'PASS #03 • GIFT OF YOUR CHOICE',
+        v3_badge: 'Your Pick 🎁',
+        v3_title: 'A Gift of Your Choice Anytime',
+        v3_desc: 'Any gift or special item you have your heart set on.. pick whatever you want at any time, with all the love in the world and zero hesitation!',
+        v3_stamp: 'Gift Granted! 🎁✨',
 
         // 3D Gift Box
         giftbox_header_title: 'Morning Surprise for Rou',
@@ -207,11 +207,11 @@ window.RouTranslations = {
         v2_desc: 'أمنية أو طلب أو فضل من اختيارك مُجاب في أي وقت تطلبيه وبدون أي قيود أو شروط.. استخدميه وقت ما تحبي.',
         v2_stamp: 'جاهز للتنفيذ فوراً! 🪄',
 
-        v3_serial: 'كارت رقم 03 • خط طوارئ 24/7',
-        v3_badge: 'متاح 24/7',
-        v3_title: 'خط مفتوح 24/7 للفضفضة والدعم',
-        v3_desc: 'مكالمة في وقت متأخر، أو مساحة أمان للفضفضة والراحة لما الدنيا تضغط عليكي.. دايماً هنا وجاهز أسمعك وأغيّر مودك لأحسن حال.',
-        v3_stamp: 'الخط مفتوح دايماً 📞',
+        v3_serial: 'كارت رقم 03 • هدية على ذوقك',
+        v3_badge: 'اختيارك الخاص 🎁',
+        v3_title: 'هدية من اختيارك في أي وقت',
+        v3_desc: 'أي هدية أو حاجة نفسك فيها تطلبيها وتختاريها بنفسك في أي وقت.. بدون أي تردد وبكل حب، وتوصلك لحد عندك!',
+        v3_stamp: 'هدية من اختيارك 🎁✨',
 
         // 3D Gift Box
         giftbox_header_title: 'مفاجأة صباحية لـ رو',
