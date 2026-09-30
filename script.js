@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentReasonIndex = 0;
     let reasonsList = (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons.en) || [];
     let currentLang = localStorage.getItem('rou_birthday_lang') || 'en';
+    let isSiteLocked = true;
+    let toastTimeout = null;
 
     const navTabs = document.querySelectorAll('.nav-tab-btn');
     const viewSections = document.querySelectorAll('.view-section');
@@ -33,12 +35,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgAudioElement = document.getElementById('backgroundMusic');
     const langToggleBtn = document.getElementById('langToggleBtn');
     const langBtnText = document.getElementById('langBtnText');
+    const lockToast = document.getElementById('lockToast');
+    const lockToastText = document.getElementById('lockToastText');
+    const lockNoticeCard = document.getElementById('lockNoticeCard');
+    const unlockCelebrationBanner = document.getElementById('unlockCelebrationBanner');
+    const startRoseBtn = document.getElementById('startRoseJourneyBtn');
+    const startRoseBtnText = document.getElementById('startRoseBtnText');
+
+    function showLockToast(customMsg) {
+        if (!lockToast) return;
+        const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+        if (lockToastText) {
+            lockToastText.textContent = customMsg || t.lock_toast_msg || 'This section is locked until October 6, 2026! 🔒';
+        }
+        lockToast.classList.add('show');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            lockToast.classList.remove('show');
+        }, 3200);
+        if (typeof playChime === 'function') {
+            playChime(220, 0.15, 'triangle');
+        }
+    }
 
     // Tab Switching
     navTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const targetTheme = tab.getAttribute('data-theme');
+        tab.addEventListener('click', (e) => {
             const targetView = tab.getAttribute('data-view');
+            if (isSiteLocked && targetView !== 'view-cake') {
+                e.preventDefault();
+                e.stopPropagation();
+                showLockToast();
+                tab.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-4px)' },
+                    { transform: 'translateX(4px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 300 });
+                return;
+            }
+            const targetTheme = tab.getAttribute('data-theme');
             switchThemeAndView(targetTheme, targetView);
         });
     });
@@ -46,6 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sub-switch buttons (e.g., from end of cake to scrapbook)
     document.querySelectorAll('.mini-switch-btn').forEach(btn => {
         btn.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             const targetView = btn.getAttribute('data-switch');
             const matchingTab = document.querySelector(`.nav-tab-btn[data-view="${targetView}"]`);
             if (matchingTab) {
@@ -55,8 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function switchThemeAndView(themeClass, viewId) {
+        if (isSiteLocked && viewId !== 'view-cake') {
+            showLockToast();
+            return;
+        }
         // Change body class
-        document.body.className = themeClass;
+        document.body.className = themeClass + (isSiteLocked ? ' site-locked' : ' site-unlocked');
         currentTheme = themeClass;
 
         // Update nav active tab
@@ -181,7 +225,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 6. Countdown check if expired
+        // 6. Update lock button text
+        if (startRoseBtnText) {
+            startRoseBtnText.textContent = isSiteLocked ? t.btn_journey_locked : t.btn_start_journey;
+        }
+
+        // 7. Countdown check if expired
         if (typeof updateCountdown === 'function') {
             updateCountdown();
         }
@@ -202,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===================================================================
-    // BIRTHDAY COUNTDOWN TO OCTOBER 6, 2026 (FOR ROU)
+    // BIRTHDAY COUNTDOWN & LOCK CONTROLLER (UNTIL OCTOBER 6, 2026)
     // ===================================================================
     const targetBirthday = new Date('2026-10-06T00:00:00');
     const cdDays = document.getElementById('cdDays');
@@ -211,9 +260,89 @@ document.addEventListener('DOMContentLoaded', () => {
     const cdSecs = document.getElementById('cdSecs');
     const mainCountdown = document.getElementById('mainCountdown');
 
+    function syncLockState(shouldBeLocked) {
+        isSiteLocked = shouldBeLocked;
+        const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+
+        if (isSiteLocked) {
+            document.body.classList.add('site-locked');
+            document.body.classList.remove('site-unlocked');
+
+            // Lock Tab 2 and Tab 3
+            navTabs.forEach(tab => {
+                const view = tab.getAttribute('data-view');
+                if (view !== 'view-cake') {
+                    tab.classList.add('tab-locked');
+                    tab.setAttribute('aria-disabled', 'true');
+                    tab.setAttribute('title', t.tab_locked_tooltip || 'Locked until October 6 🔒');
+                }
+            });
+
+            // Lock journey button
+            if (startRoseBtn) {
+                startRoseBtn.setAttribute('aria-disabled', 'true');
+            }
+            if (startRoseBtnText) {
+                startRoseBtnText.textContent = t.btn_journey_locked || '🔒 Locked Until Countdown Reaches Zero';
+            }
+
+            if (unlockCelebrationBanner) {
+                unlockCelebrationBanner.classList.remove('show');
+            }
+
+            // Ensure we stay on Step 1 of view-cake
+            if (currentTheme !== 'theme-rose' || !document.getElementById('view-cake')?.classList.contains('active')) {
+                switchThemeAndView('theme-rose', 'view-cake');
+            }
+            const activeStep = document.querySelector('#view-cake .step.active');
+            if (activeStep && activeStep.id !== 'cakeStep1') {
+                switchCakeStep('cakeStep1');
+            }
+        } else {
+            document.body.classList.remove('site-locked');
+            document.body.classList.add('site-unlocked');
+
+            // Unlock all tabs
+            navTabs.forEach(tab => {
+                tab.classList.remove('tab-locked');
+                tab.removeAttribute('aria-disabled');
+                tab.removeAttribute('title');
+            });
+
+            // Unlock journey button
+            if (startRoseBtn) {
+                startRoseBtn.removeAttribute('aria-disabled');
+            }
+            if (startRoseBtnText) {
+                startRoseBtnText.textContent = t.btn_start_journey || 'Begin the Journey, Rou ✨';
+            }
+
+            if (unlockCelebrationBanner) {
+                unlockCelebrationBanner.classList.add('show');
+            }
+        }
+    }
+
     function updateCountdown() {
         const now = new Date();
         const diff = targetBirthday - now;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceUnlock = urlParams.get('unlocked') === 'true' || urlParams.get('preview') === 'unlocked' || window.__forceUnlocked === true;
+
+        const shouldBeLocked = diff > 0 && !forceUnlock;
+
+        if (shouldBeLocked !== isSiteLocked) {
+            const wasLocked = isSiteLocked;
+            syncLockState(shouldBeLocked);
+            if (wasLocked && !shouldBeLocked) {
+                // Real-time transition to unlocked!
+                launchConfetti(80);
+                if (typeof playCelebrationTone === 'function') {
+                    playCelebrationTone();
+                }
+            }
+        }
 
         if (diff <= 0) {
             if (mainCountdown) {
@@ -234,6 +363,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cdMins) cdMins.textContent = String(minutes).padStart(2, '0');
         if (cdSecs) cdSecs.textContent = String(seconds).padStart(2, '0');
     }
+
+    // Expose testing helpers on window
+    window.unlockExperience = function() {
+        window.__forceUnlocked = true;
+        updateCountdown();
+        launchConfetti(60);
+        if (typeof playCelebrationTone === 'function') {
+            playCelebrationTone();
+        }
+        console.log('%c🎉 Experience Unlocked for Preview / Testing!', 'color:#2ecc71; font-size:15px; font-weight:bold;');
+    };
+
+    window.lockExperience = function() {
+        window.__forceUnlocked = false;
+        updateCountdown();
+        console.log('%c🔒 Experience Locked until Countdown Reaches Zero!', 'color:#ff4b72; font-size:15px; font-weight:bold;');
+    };
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
@@ -339,7 +485,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================================
     // 3. EXPERIENCE 1: ROSE DREAM (ENVELOPE, LETTER, CAKE & CANDLE)
     // ===================================================================
-    const startRoseBtn = document.getElementById('startRoseJourneyBtn');
     const envelope = document.getElementById('envelopeInteractive');
     const proceedToCakeBtn = document.getElementById('proceedToCakeBtn');
     const candleWrapper = document.getElementById('candleWrapper');
@@ -358,7 +503,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Step 1 -> Step 2
     if (startRoseBtn) {
-        startRoseBtn.addEventListener('click', () => {
+        startRoseBtn.addEventListener('click', (e) => {
+            if (isSiteLocked) {
+                e.preventDefault();
+                showLockToast();
+                startRoseBtn.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-6px)' },
+                    { transform: 'translateX(6px)' },
+                    { transform: 'translateX(-4px)' },
+                    { transform: 'translateX(4px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 350 });
+                return;
+            }
             switchCakeStep('cakeStep2');
             startMusicPlayback();
         });
@@ -367,6 +525,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Step 2 -> Step 3 (Envelope Open)
     if (envelope) {
         envelope.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             if (!envelope.classList.contains('open')) {
                 envelope.classList.add('open');
                 setTimeout(() => {
@@ -379,12 +541,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Step 3 -> Step 4 (Proceed to Cake)
     if (proceedToCakeBtn) {
         proceedToCakeBtn.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             switchCakeStep('cakeStep4');
         });
     }
 
     // Candle Extinguish Interaction
     function extinguishCandle() {
+        if (isSiteLocked) {
+            showLockToast();
+            return;
+        }
         if (candleBlown) return;
         candleBlown = true;
 
@@ -514,6 +684,10 @@ document.addEventListener('DOMContentLoaded', () => {
     voucherCards.forEach(card => {
         const btn = card.querySelector('.voucher-btn');
         const activateVoucher = () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             if (!card.classList.contains('redeemed')) {
                 card.classList.add('redeemed');
                 const serial = card.querySelector('.voucher-serial')?.textContent?.trim() || 'PASS';
@@ -557,6 +731,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3D Gift Box Unboxing
     if (giftbox) {
         giftbox.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             if (!giftbox.classList.contains('opened')) {
                 giftbox.classList.add('opened');
                 if (window.RouTracker) {
@@ -587,6 +765,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3D Flip Secret Cards
     flipCards.forEach(card => {
         card.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             card.classList.toggle('flipped');
             playSparkleTone();
         });
@@ -600,6 +782,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (drawReasonBtn) {
         drawReasonBtn.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             if (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons[currentLang]) {
                 reasonsList = window.RouTranslations.reasons[currentLang];
             }
@@ -649,6 +835,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     starNodes.forEach(node => {
         node.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             starNodes.forEach(s => s.classList.remove('active'));
             node.classList.add('active');
 
@@ -694,6 +884,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (rewindBtn) {
         rewindBtn.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             if (bgAudioElement) {
                 bgAudioElement.currentTime = 0;
             }
@@ -703,6 +897,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (forwardBtn) {
         forwardBtn.addEventListener('click', () => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
             if (bgAudioElement) {
                 bgAudioElement.currentTime = Math.min((bgAudioElement.duration || 1000) - 1, bgAudioElement.currentTime + 10);
             }
@@ -718,6 +916,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleMusic() {
+        if (isSiteLocked) {
+            showLockToast();
+            return;
+        }
         if (isMusicPlaying) {
             stopMusicPlayback();
         } else {

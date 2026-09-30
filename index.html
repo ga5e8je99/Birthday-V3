@@ -63,6 +63,7 @@
                     <span class="label-full" data-i18n="tab_passes_full">Surprise Passes & Gift</span>
                     <span class="label-short" data-i18n="tab_passes_short">Passes</span>
                 </span>
+                <span class="tab-lock-badge" title="Locked until October 6">🔒</span>
             </button>
             <button class="nav-tab-btn" data-theme="theme-stars" data-view="view-stars">
                 <span class="tab-icon">
@@ -76,6 +77,7 @@
                     <span class="label-full" data-i18n="tab_stars_full">Starlit Night & Music</span>
                     <span class="label-short" data-i18n="tab_stars_short">Stars</span>
                 </span>
+                <span class="tab-lock-badge" title="Locked until October 6">🔒</span>
             </button>
         </nav>
         <div class="nav-controls-group">
@@ -165,8 +167,31 @@
                         </div>
                     </div>
 
+                    <!-- Lock Notice Card (Active until countdown reaches 0) -->
+                    <div class="lock-notice-card" id="lockNoticeCard">
+                        <div class="lock-notice-icon">
+                            <svg class="svg-icon stroke" viewBox="0 0 24 24">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+                        <div class="lock-notice-content">
+                            <div class="lock-notice-title">
+                                <span data-i18n="lock_notice_title">Surprise Currently Locked 🔒</span>
+                            </div>
+                            <p class="lock-notice-text" data-i18n="lock_notice_desc">
+                                All pages, activities, and gifts are locked until October 6, 2026. Everything will unlock automatically the moment the countdown reaches zero!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Unlock Celebration Notice (Visible once countdown reaches 0) -->
+                    <div class="unlock-celebration-banner" id="unlockCelebrationBanner">
+                        <span data-i18n="unlock_celebration_text">🎉 The moment has arrived! All birthday pages and surprises are now unlocked ✨</span>
+                    </div>
+
                     <button id="startRoseJourneyBtn" class="magic-btn primary-btn">
-                        <span data-i18n="btn_start_journey">Begin the Journey, Rou ✨</span>
+                        <span id="startRoseBtnText" data-i18n="btn_start_journey">Begin the Journey, Rou ✨</span>
                         <div class="btn-glow"></div>
                     </button>
                 </div>
@@ -931,6 +956,15 @@
         </section>
 
     </main>
+
+    <!-- Lock Warning Toast -->
+    <div class="lock-toast" id="lockToast">
+        <svg class="svg-icon stroke" viewBox="0 0 24 24" style="color:var(--accent-gold);width:1.2em;height:1.2em;flex-shrink:0;">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+        <span id="lockToastText" data-i18n="lock_toast_msg">This section is locked until October 6, 2026! 🔒</span>
+    </div>
 
     <!-- Hidden Native Audio fallback -->
     <audio id="backgroundMusic" loop preload="auto">

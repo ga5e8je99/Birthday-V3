@@ -27,6 +27,11 @@ window.RouTranslations = {
         cd_secs: 'Secs',
         cd_expired: 'Today is October 6th! Happy Birthday to the radiant Rou! ✨',
         btn_start_journey: 'Begin the Journey, Rou ✨',
+        btn_journey_locked: '🔒 Locked Until Countdown Reaches Zero',
+        lock_notice_title: 'Surprise Currently Locked 🔒',
+        lock_notice_desc: 'All pages, activities, and gifts are locked until October 6, 2026. Everything will unlock automatically the moment the countdown reaches zero!',
+        unlock_celebration_text: '🎉 The moment has arrived! All birthday pages and surprises are now unlocked ✨',
+        lock_toast_msg: 'This section is locked until October 6, 2026! 🔒',
 
         // Step 2: Envelope
         envelope_seal_text: 'To Rou ✉',
@@ -163,7 +168,12 @@ window.RouTranslations = {
         cd_mins: 'دقائق',
         cd_secs: 'ثواني',
         cd_expired: 'اليوم 6 أكتوبر! عيد ميلاد سعيد لأغلى وأجمل رو! ✨',
-        btn_start_journey: 'ابدأي الرحلة يا رو ✨',
+        btn_start_journey: 'ابدأي المفاجأة يا رو ✨',
+        btn_journey_locked: '🔒 مغلق حتى انتهاء العد التنازلي',
+        lock_notice_title: 'المفاجأة مغلقة حالياً ومحمية 🔒',
+        lock_notice_desc: 'جميع الصفحات والأنشطة والهدايا مغلقة حتى حلول 6 أكتوبر 2026. ستُفتح تلقائياً فور وصول العداد إلى الصفر!',
+        unlock_celebration_text: '🎉 حان وقت الاحتفال! تم فتح جميع صفحات ومفاجآت عيد الميلاد الآن ✨',
+        lock_toast_msg: 'هذا القسم مغلق حتى حلول 6 أكتوبر 2026! 🔒',
 
         // Step 2: Envelope
         envelope_seal_text: 'إلى رو ✉',
