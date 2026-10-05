@@ -78,7 +78,7 @@ const RouTracker = (function () {
                 body: JSON.stringify({
                     access_key: key,
                     subject: subject,
-                    from_name: "Rou's Birthday Experience 🎂",
+                    from_name: "Rou's Birthday Experience",
                     message: rawText,
                     html: detailsHtml
                 })
@@ -179,7 +179,7 @@ const RouTracker = (function () {
 
         // 4. Trigger Email Notification based on event type
         if (type === 'voucher_redeemed') {
-            const subject = `🎉 Rou Redeemed: ${data.serial} - ${data.title}!`;
+            const subject = `[Birthday Pass Redeemed] Rou: ${data.serial} - ${data.title}!`;
             const text = `Exciting News! Rou just redeemed a voucher on her birthday website!\n\n` +
                          `Voucher: ${data.serial} • ${data.title}\n` +
                          `Badge: ${data.badge}\n` +
@@ -187,36 +187,36 @@ const RouTracker = (function () {
                          `Description: "${data.desc}"\n`;
             const html = `
                 <div style="font-family:sans-serif;max-width:550px;margin:auto;padding:24px;border:2px solid #f8d070;border-radius:14px;background:#1a081a;color:#fff;">
-                    <h2 style="color:#ffd700;margin-top:0;">🎉 Rou Redeemed a Birthday Pass!</h2>
+                    <h2 style="color:#ffd700;margin-top:0;">Rou Redeemed a Birthday Pass!</h2>
                     <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:10px;border-left:4px solid #ff4b72;margin:16px 0;">
                         <span style="color:#ff8da1;font-size:0.85rem;font-weight:bold;letter-spacing:1px;">${data.serial}</span>
                         <h3 style="color:#fff;margin:6px 0 10px;">${data.title}</h3>
                         <p style="color:#ddd;font-size:0.95rem;line-height:1.6;">${data.desc || ''}</p>
                         <span style="display:inline-block;background:#ffd700;color:#1a081a;padding:4px 10px;border-radius:20px;font-size:0.8rem;font-weight:bold;">${data.badge || 'Redeemed'}</span>
                     </div>
-                    <p style="color:#bbb;font-size:0.85rem;margin-bottom:0;">🕒 Redeemed on: <strong>${timeInfo.formatted}</strong></p>
+                    <p style="color:#bbb;font-size:0.85rem;margin-bottom:0;">Redeemed on: <strong>${timeInfo.formatted}</strong></p>
                 </div>
             `;
             sendEmailNotification(subject, html, text);
         } else if (type === 'candle_blown') {
-            const subject = `🎂 Rou Blew Out the Candle and Made a Wish!`;
+            const subject = `[Wish Made] Rou Blew Out the Candle on the Cake!`;
             const text = `Rou just blew out the candle on her 3D Birthday Cake at ${timeInfo.formatted}!`;
             const html = `
                 <div style="font-family:sans-serif;max-width:550px;margin:auto;padding:24px;border:2px solid #ff4b72;border-radius:14px;background:#1a081a;color:#fff;">
-                    <h2 style="color:#ff4b72;margin-top:0;">🎂 Candle Blown!</h2>
+                    <h2 style="color:#ff4b72;margin-top:0;">Candle Blown!</h2>
                     <p style="color:#eee;font-size:1.05rem;">Rou just made her birthday wish and blew out the candle on the cake!</p>
-                    <p style="color:#bbb;font-size:0.85rem;">🕒 Time: <strong>${timeInfo.formatted}</strong></p>
+                    <p style="color:#bbb;font-size:0.85rem;">Time: <strong>${timeInfo.formatted}</strong></p>
                 </div>
             `;
             sendEmailNotification(subject, html, text);
         } else if (type === 'giftbox_opened') {
-            const subject = `🎁 Rou Opened the Morning Surprise Box!`;
-            const text = `Rou opened the 3D gift box and saw the morning surprise message at ${timeInfo.formatted}!`;
+            const subject = `[Gift Unboxed] Rou Opened the Gift Box!`;
+            const text = `Rou opened the 3D gift box and saw the October 10th surprise gift message at ${timeInfo.formatted}!`;
             const html = `
                 <div style="font-family:sans-serif;max-width:550px;margin:auto;padding:24px;border:2px solid #ffd700;border-radius:14px;background:#1a081a;color:#fff;">
-                    <h2 style="color:#ffd700;margin-top:0;">🎁 Morning Gift Box Opened!</h2>
-                    <p style="color:#eee;font-size:1.05rem;">Rou just opened the 3D mystery box to reveal the October 6th morning gift teaser!</p>
-                    <p style="color:#bbb;font-size:0.85rem;">🕒 Time: <strong>${timeInfo.formatted}</strong></p>
+                    <h2 style="color:#ffd700;margin-top:0;">Gift Box Opened!</h2>
+                    <p style="color:#eee;font-size:1.05rem;">Rou just opened the 3D mystery box to reveal the October 10th gift teaser!</p>
+                    <p style="color:#bbb;font-size:0.85rem;">Time: <strong>${timeInfo.formatted}</strong></p>
                 </div>
             `;
             sendEmailNotification(subject, html, text);
@@ -241,8 +241,8 @@ const RouTracker = (function () {
                 },
                 body: JSON.stringify({
                     access_key: key,
-                    subject: '✅ Test Alert from Rou Birthday Dashboard',
-                    from_name: "Rou Birthday Tracker 🎂",
+                    subject: 'Test Alert from Rou Birthday Dashboard',
+                    from_name: "Rou Birthday Tracker",
                     message: `Congratulations! Your email notification is connected and working perfectly!\nYou will receive instant alerts here whenever Rou interacts with her birthday website.\nSent at: ${new Date().toLocaleString()}`
                 })
             });

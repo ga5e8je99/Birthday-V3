@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rou's Birthday • Secret Activity Dashboard 📊</title>
+    <title>Rou's Birthday • Secret Activity Dashboard</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+        <!-- Font Awesome Pro 6.7.2 CDN -->
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-thin.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-solid.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-regular.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-duotone-light.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-thin.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-solid.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-regular.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/sharp-light.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-thin.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-regular.css">
+    <link rel=stylesheet href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-light.css">
+    <link rel=stylesheet href="vendor/fontawesome/css/all.css">
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
@@ -442,7 +456,7 @@
     <!-- PIN Protection Modal -->
     <div class="pin-lock-modal" id="pinModal">
         <div class="pin-box">
-            <div style="font-size: 2.2rem; margin-bottom: 10px;">🔒</div>
+            <div style="font-size: 2.2rem; margin-bottom: 10px; color: #ff4b72;"><i class="fa-solid fa-lock"></i></div>
             <h2>Private Dashboard</h2>
             <p>Enter your secret PIN to access Rou's Activity Monitor</p>
             <form id="pinForm">
@@ -462,7 +476,7 @@
         <header class="dash-header">
             <div class="dash-title-group">
                 <h1>
-                    <span>👑 Rou's Birthday Monitor</span>
+                    <span><i class="fa-solid fa-crown" style="color: #ffd700; margin-right: 6px;"></i> Rou's Birthday Monitor</span>
                     <span class="dash-live-badge"><span class="live-dot"></span> Live Sync</span>
                 </h1>
                 <p>Real-time notifications, voucher selection & activity tracker for Rou (06.10.2026)</p>
@@ -472,7 +486,7 @@
                     <span>↻ Refresh</span>
                 </button>
                 <button id="clearBtn" class="dash-btn danger" title="Clear recorded history">
-                    <span>🗑️ Clear</span>
+                    <span><i class="fa-solid fa-trash-can" style="margin-right: 4px;"></i> Clear</span>
                 </button>
                 <a href="index.html" class="dash-btn primary" target="_blank">
                     <span>View Site ↗</span>
@@ -487,8 +501,8 @@
             <div class="metric-card hero-metric" id="heroVoucherCard">
                 <div class="hero-voucher-box">
                     <div class="hero-voucher-info">
-                        <span class="metric-label">🎟️ REDEEMED BIRTHDAY PASS (MAIN CHOICE)</span>
-                        <h3 id="heroVoucherTitle">Waiting for Rou to choose a voucher... ⏳</h3>
+                        <span class="metric-label"><i class="fa-solid fa-ticket" style="color: #f8d070; margin-right: 6px;"></i> REDEEMED BIRTHDAY PASS (MAIN CHOICE)</span>
+                        <h3 id="heroVoucherTitle">Waiting for Rou to choose a voucher... <i class="fa-solid fa-hourglass-half" style="color: #bbb;"></i></h3>
                         <p id="heroVoucherDesc">Once Rou clicks "Redeem Voucher Now" on any of the 3 passes, it will instantly show up here with full details and timestamp!</p>
                         <div class="metric-status" id="heroVoucherTime">No voucher selected yet</div>
                     </div>
@@ -498,7 +512,7 @@
 
             <!-- Metric 2: Candle Blown -->
             <div class="metric-card">
-                <div class="metric-icon">🎂</div>
+                <div class="metric-icon"><i class="fa-solid fa-cake-candles" style="color: #ff4b72;"></i></div>
                 <div class="metric-label">Candle Blown</div>
                 <div class="metric-value" id="candleStatus">Waiting...</div>
                 <div class="metric-status" id="candleTime">No wish made yet</div>
@@ -506,7 +520,7 @@
 
             <!-- Metric 3: Gift Box -->
             <div class="metric-card">
-                <div class="metric-icon">🎁</div>
+                <div class="metric-icon"><i class="fa-solid fa-gift" style="color: #f8d070;"></i></div>
                 <div class="metric-label">Morning Gift Box</div>
                 <div class="metric-value" id="giftboxStatus">Closed</div>
                 <div class="metric-status" id="giftboxTime">Not unboxed yet</div>
@@ -514,7 +528,7 @@
 
             <!-- Metric 4: Jar Thoughts Read -->
             <div class="metric-card">
-                <div class="metric-icon">💭</div>
+                <div class="metric-icon"><i class="fa-solid fa-thought-bubble" style="color: #64ffda;"></i></div>
                 <div class="metric-label">Thoughts Drawn</div>
                 <div class="metric-value" id="jarCount">0 / 10</div>
                 <div class="metric-status" id="jarLastThought">None yet</div>
@@ -528,7 +542,7 @@
             <!-- Left: Real-Time Activity Feed -->
             <div class="panel-card">
                 <div class="panel-header">
-                    <h2>📋 Live Activity Feed</h2>
+                    <h2><i class="fa-solid fa-clipboard-list" style="color: #f8d070; margin-right: 8px;"></i> Live Activity Feed</h2>
                     <span id="eventCountBadge" style="font-size:0.8rem; background:rgba(255,255,255,0.1); padding:3px 10px; border-radius:12px;">0 Events</span>
                 </div>
 
@@ -542,7 +556,7 @@
             <!-- Right: Email & Notification Settings -->
             <div class="panel-card">
                 <div class="panel-header">
-                    <h2>✉️ Email Alerts Setup</h2>
+                    <h2><i class="fa-solid fa-envelope" style="color: #f8d070; margin-right: 8px;"></i> Email Alerts Setup</h2>
                 </div>
 
                 <p style="font-size:0.85rem; color:rgba(255,255,255,0.7); line-height:1.5; margin-bottom:16px;">
@@ -567,7 +581,7 @@
                 <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:24px 0;">
 
                 <div class="panel-header" style="margin-bottom:12px;">
-                    <h2>📱 How this works</h2>
+                    <h2><i class="fa-solid fa-mobile-screen" style="color: #64ffda; margin-right: 8px;"></i> How this works</h2>
                 </div>
                 <ul style="font-size:0.82rem; color:rgba(255,255,255,0.7); line-height:1.7; padding-left:18px;">
                     <li><strong>Instant Email:</strong> Alerts you the second she clicks a pass.</li>
@@ -657,14 +671,14 @@
                 const res = await window.RouTracker.sendTestEmail(key);
                 testEmailBtn.disabled = false;
                 if (res.success) {
-                    showStatus('✅ Test email sent! Check your inbox (or spam folder).', 'success');
+                    showStatus('<i class="fa-solid fa-circle-check" style="color:#2ecc71;"></i> Test email sent! Check your inbox (or spam folder).', 'success');
                 } else {
-                    showStatus('❌ Error sending test email: ' + (res.message || 'Check your key'), 'error');
+                    showStatus('<i class="fa-solid fa-circle-xmark" style="color:#e74c3c;"></i> Error sending test email: ' + (res.message || 'Check your key'), 'error');
                 }
             });
 
             function showStatus(msg, type) {
-                emailStatusMsg.textContent = msg;
+                emailStatusMsg.innerHTML = msg;
                 emailStatusMsg.className = 'status-msg ' + type;
             }
 
@@ -724,32 +738,32 @@
                         const item = document.createElement('div');
                         item.className = 'feed-item type-' + getStyleType(type);
 
-                        let icon = '📌';
+                        let icon = '<i class="fa-solid fa-thumbtack"></i>';
                         let title = data.title || type;
                         let desc = data.desc || data.note || '';
 
                         if (type === 'voucher_redeemed') {
-                            icon = '🎟️';
+                            icon = '<i class="fa-solid fa-ticket" style="color:#f8d070;"></i>';
                             title = `${data.serial}: ${data.title}`;
                             desc = `"${data.desc}" • [Badge: ${data.badge}]`;
                         } else if (type === 'candle_blown') {
-                            icon = '🎂';
+                            icon = '<i class="fa-solid fa-cake-candles" style="color:#ff4b72;"></i>';
                             title = 'Candle Blown Out';
                             desc = 'Rou made her birthday wish and extinguished the candle on the cake!';
                         } else if (type === 'giftbox_opened') {
-                            icon = '🎁';
-                            title = 'Morning Surprise Unboxed';
-                            desc = 'Rou opened the 3D mystery box and read the October 6th morning gift teaser.';
+                            icon = '<i class="fa-solid fa-gift" style="color:#f8d070;"></i>';
+                            title = 'Gift Box Unboxed';
+                            desc = 'Rou opened the 3D mystery box and read the October 10th gift teaser.';
                         } else if (type === 'star_explored') {
-                            icon = '🌟';
+                            icon = '<i class="fa-solid fa-star" style="color:#ffd700;"></i>';
                             title = data.title;
                             desc = data.desc;
                         } else if (type === 'jar_drawn') {
-                            icon = '💭';
+                            icon = '<i class="fa-solid fa-thought-bubble" style="color:#64ffda;"></i>';
                             title = data.title;
                             desc = `"${data.quote}" (Count: ${data.count})`;
                         } else if (type === 'page_visit') {
-                            icon = '👁️';
+                            icon = '<i class="fa-solid fa-eye" style="color:#9c27b0;"></i>';
                             title = 'Website Visited';
                             desc = `Screen: ${data.screen || 'Mobile/Desktop'} • Referrer: ${data.referrer || 'Direct'}`;
                         }
@@ -778,7 +792,7 @@
                     heroVoucherBadge.style.color = '#fff';
                     heroVoucherTime.textContent = `Redeemed on: ${latestVoucher.formattedTime}`;
                 } else {
-                    heroVoucherTitle.textContent = 'Waiting for Rou to choose a voucher... ⏳';
+                    heroVoucherTitle.innerHTML = 'Waiting for Rou to choose a voucher... <i class="fa-solid fa-hourglass-half" style="color:#bbb;"></i>';
                     heroVoucherDesc.textContent = 'Once Rou clicks "Redeem Voucher Now" on any of the 3 passes, it will instantly show up here with full details and timestamp!';
                     heroVoucherBadge.textContent = 'Status: Pending';
                     heroVoucherBadge.style.background = 'rgba(248, 208, 112, 0.2)';
@@ -788,7 +802,7 @@
 
                 // Update Candle Metric
                 if (latestCandle) {
-                    candleStatus.textContent = 'Blown! ✨';
+                    candleStatus.innerHTML = 'Blown! <i class="fa-solid fa-sparkles fa-sparkle-themed"></i>';
                     candleStatus.style.color = '#2ecc71';
                     candleTime.textContent = latestCandle.formattedTime;
                 } else {
@@ -799,7 +813,7 @@
 
                 // Update Gift Box Metric
                 if (latestGift) {
-                    giftboxStatus.textContent = 'Unboxed! 🎁';
+                    giftboxStatus.innerHTML = 'Unboxed! <i class="fa-solid fa-gift fa-gift-themed"></i>';
                     giftboxStatus.style.color = '#ffd700';
                     giftboxTime.textContent = latestGift.formattedTime;
                 } else {

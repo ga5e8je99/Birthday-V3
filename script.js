@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let candleBlown = false;
     let hasDrawnReason = false;
     let currentReasonIndex = 0;
-    let reasonsList = (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons.en) || [];
-    let currentLang = localStorage.getItem('rou_birthday_lang') || 'en';
-    let isSiteLocked = true;
+    let currentLang = localStorage.getItem('rou_birthday_lang') || 'ar';
+    let reasonsList = (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons[currentLang]) || [];
+    let isSiteLocked = false;
     let toastTimeout = null;
 
     const navTabs = document.querySelectorAll('.nav-tab-btn');
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!lockToast) return;
         const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
         if (lockToastText) {
-            lockToastText.textContent = customMsg || t.lock_toast_msg || 'This section is locked until October 6, 2026! 🔒';
+            lockToastText.innerHTML = customMsg || t.lock_toast_msg || 'This section is locked until October 6, 2026! <i class="fa-solid fa-lock fa-icon-inline" style="color:#ef4444;"></i>';
         }
         lockToast.classList.add('show');
         if (toastTimeout) clearTimeout(toastTimeout);
@@ -79,18 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Sub-switch buttons (e.g., from end of cake to scrapbook)
+    // Sub-switch buttons (e.g., from end of cake to scrapbook, or back)
     document.querySelectorAll('.mini-switch-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            if (isSiteLocked) {
-                showLockToast();
-                return;
-            }
             const targetView = btn.getAttribute('data-switch');
-            const matchingTab = document.querySelector(`.nav-tab-btn[data-view="${targetView}"]`);
-            if (matchingTab) {
-                matchingTab.click();
-            }
+            const targetTheme = (targetView === 'view-scrapbook') ? 'theme-scrapbook' : ((targetView === 'view-stars') ? 'theme-stars' : 'theme-rose');
+            switchThemeAndView(targetTheme, targetView);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 
@@ -227,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 6. Update lock button text
         if (startRoseBtnText) {
-            startRoseBtnText.textContent = isSiteLocked ? t.btn_journey_locked : t.btn_start_journey;
+            startRoseBtnText.innerHTML = isSiteLocked ? t.btn_journey_locked : t.btn_start_journey;
         }
 
         // 7. Countdown check if expired
@@ -261,65 +256,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainCountdown = document.getElementById('mainCountdown');
 
     function syncLockState(shouldBeLocked) {
-        isSiteLocked = shouldBeLocked;
+        isSiteLocked = false;
         const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
 
-        if (isSiteLocked) {
-            document.body.classList.add('site-locked');
-            document.body.classList.remove('site-unlocked');
+        document.body.classList.remove('site-locked');
+        document.body.classList.add('site-unlocked');
 
-            // Lock Tab 2 and Tab 3
-            navTabs.forEach(tab => {
-                const view = tab.getAttribute('data-view');
-                if (view !== 'view-cake') {
-                    tab.classList.add('tab-locked');
-                    tab.setAttribute('aria-disabled', 'true');
-                    tab.setAttribute('title', t.tab_locked_tooltip || 'Locked until October 6 🔒');
-                }
-            });
+        // Unlock all tabs
+        navTabs.forEach(tab => {
+            tab.classList.remove('tab-locked');
+            tab.removeAttribute('aria-disabled');
+            tab.removeAttribute('title');
+        });
 
-            // Lock journey button
-            if (startRoseBtn) {
-                startRoseBtn.setAttribute('aria-disabled', 'true');
-            }
-            if (startRoseBtnText) {
-                startRoseBtnText.textContent = t.btn_journey_locked || '🔒 Locked Until Countdown Reaches Zero';
-            }
+        // Unlock journey button
+        if (startRoseBtn) {
+            startRoseBtn.removeAttribute('aria-disabled');
+        }
+        if (startRoseBtnText) {
+            startRoseBtnText.innerHTML = t.btn_start_journey || 'ابدأي المفاجأة <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>';
+        }
 
-            if (unlockCelebrationBanner) {
-                unlockCelebrationBanner.classList.remove('show');
-            }
-
-            // Ensure we stay on Step 1 of view-cake
-            if (currentTheme !== 'theme-rose' || !document.getElementById('view-cake')?.classList.contains('active')) {
-                switchThemeAndView('theme-rose', 'view-cake');
-            }
-            const activeStep = document.querySelector('#view-cake .step.active');
-            if (activeStep && activeStep.id !== 'cakeStep1') {
-                switchCakeStep('cakeStep1');
-            }
-        } else {
-            document.body.classList.remove('site-locked');
-            document.body.classList.add('site-unlocked');
-
-            // Unlock all tabs
-            navTabs.forEach(tab => {
-                tab.classList.remove('tab-locked');
-                tab.removeAttribute('aria-disabled');
-                tab.removeAttribute('title');
-            });
-
-            // Unlock journey button
-            if (startRoseBtn) {
-                startRoseBtn.removeAttribute('aria-disabled');
-            }
-            if (startRoseBtnText) {
-                startRoseBtnText.textContent = t.btn_start_journey || 'Begin the Journey, Rou ✨';
-            }
-
-            if (unlockCelebrationBanner) {
-                unlockCelebrationBanner.classList.add('show');
-            }
+        if (unlockCelebrationBanner) {
+            unlockCelebrationBanner.classList.remove('show');
         }
     }
 
@@ -327,27 +286,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date();
         const diff = targetBirthday - now;
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const forceUnlock = urlParams.get('unlocked') === 'true' || urlParams.get('preview') === 'unlocked' || window.__forceUnlocked === true;
-
-        const shouldBeLocked = diff > 0 && !forceUnlock;
-
-        if (shouldBeLocked !== isSiteLocked) {
-            const wasLocked = isSiteLocked;
-            syncLockState(shouldBeLocked);
-            if (wasLocked && !shouldBeLocked) {
-                // Real-time transition to unlocked!
-                launchConfetti(80);
-                if (typeof playCelebrationTone === 'function') {
-                    playCelebrationTone();
-                }
-            }
+        // Ensure all elements and views remain permanently unlocked
+        if (isSiteLocked || document.body.classList.contains('site-locked')) {
+            syncLockState(false);
         }
 
         if (diff <= 0) {
             if (mainCountdown) {
                 const t = window.RouTranslations && window.RouTranslations[currentLang];
-                const expiredMsg = t ? t.cd_expired : 'Today is October 6th! Happy Birthday to the radiant Rou! ✨';
+                const expiredMsg = t ? t.cd_expired : 'Today is October 6th! Happy Birthday to you! <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>';
                 mainCountdown.innerHTML = `<div style="font-size: 1.25rem; font-weight: 800; color: #ffeb3b; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${expiredMsg} <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg></div>`;
             }
             return;
@@ -372,15 +319,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof playCelebrationTone === 'function') {
             playCelebrationTone();
         }
-        console.log('%c🎉 Experience Unlocked for Preview / Testing!', 'color:#2ecc71; font-size:15px; font-weight:bold;');
+        console.log('%c[UNLOCKED] Experience Unlocked for Preview / Testing!', 'color:#2ecc71; font-size:15px; font-weight:bold;');
     };
 
     window.lockExperience = function() {
         window.__forceUnlocked = false;
         updateCountdown();
-        console.log('%c🔒 Experience Locked until Countdown Reaches Zero!', 'color:#ff4b72; font-size:15px; font-weight:bold;');
+        console.log('%c[LOCKED] Experience Locked until Countdown Reaches Zero!', 'color:#ff4b72; font-size:15px; font-weight:bold;');
     };
 
+    syncLockState(false);
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
@@ -538,11 +486,115 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Step 3 -> Step 4 (Proceed to Cake)
+    // Step 3: 3D Flippable Birthday Card Interaction (Cover -> Letter)
+    const birthdayCard = document.getElementById('birthdayCardInteractive');
+    const cardFlipHint = document.getElementById('cardFlipHint');
+    const cardProceedContainer = document.getElementById('cardProceedContainer');
+    const btnFlipBack = document.getElementById('btnFlipBack');
+    let isCardFlipping = false;
+    let hasLetterBeenOpened = false;
+
+    function flipCardToLetter() {
+        if (isCardFlipping) return;
+        isCardFlipping = true;
+
+        if (cardFlipHint) {
+            cardFlipHint.classList.add('hint-hidden');
+        }
+
+        if (birthdayCard) {
+            birthdayCard.classList.add('flipped');
+            birthdayCard.setAttribute('aria-expanded', 'true');
+        }
+
+        if (typeof playSparkleTone === 'function') {
+            playSparkleTone();
+        }
+
+        if (!hasLetterBeenOpened) {
+            hasLetterBeenOpened = true;
+            if (window.RouTracker) {
+                window.RouTracker.track('letter_opened', {
+                    title: 'Birthday Letter Card Flipped & Read',
+                    note: 'Rou flipped the 3D card and revealed her heartfelt letter!'
+                });
+            }
+            // After flip finishes (900ms), reveal the Proceed button!
+            setTimeout(() => {
+                if (cardProceedContainer) {
+                    cardProceedContainer.classList.add('revealed');
+                }
+                if (proceedToCakeBtn) {
+                    proceedToCakeBtn.removeAttribute('disabled');
+                }
+                isCardFlipping = false;
+            }, 900);
+        } else {
+            setTimeout(() => {
+                isCardFlipping = false;
+            }, 900);
+        }
+    }
+
+    function flipCardToCover() {
+        if (isCardFlipping) return;
+        isCardFlipping = true;
+
+        if (birthdayCard) {
+            birthdayCard.classList.remove('flipped');
+            birthdayCard.setAttribute('aria-expanded', 'false');
+        }
+
+        if (cardFlipHint) {
+            cardFlipHint.classList.remove('hint-hidden');
+        }
+
+        if (typeof playSparkleTone === 'function') {
+            playSparkleTone();
+        }
+
+        setTimeout(() => {
+            isCardFlipping = false;
+        }, 900);
+    }
+
+    if (birthdayCard) {
+        birthdayCard.addEventListener('click', (e) => {
+            if (isSiteLocked) {
+                showLockToast();
+                return;
+            }
+            // Only flip to letter if currently on cover
+            if (!birthdayCard.classList.contains('flipped')) {
+                flipCardToLetter();
+            }
+        });
+
+        birthdayCard.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (!birthdayCard.classList.contains('flipped')) {
+                    flipCardToLetter();
+                }
+            }
+        });
+    }
+
+    if (btnFlipBack) {
+        btnFlipBack.addEventListener('click', (e) => {
+            e.stopPropagation();
+            flipCardToCover();
+        });
+    }
+
+    // Step 3 -> Step 4 (Proceed to Cake - Gated until letter is flipped)
     if (proceedToCakeBtn) {
         proceedToCakeBtn.addEventListener('click', () => {
             if (isSiteLocked) {
                 showLockToast();
+                return;
+            }
+            if (!hasLetterBeenOpened) {
                 return;
             }
             switchCakeStep('cakeStep4');
@@ -570,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
         blowCandleBtn.innerHTML = `<span><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${t.btn_candle_blown || 'Candle Blown & Wish Made!'}</span>`;
 
-        cakeInstruction.innerHTML = `<strong><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${t.cake_instruction_done || 'Happy Birthday Rou! May all your wishes come true in a blessed new year! ✨'}</strong>`;
+        cakeInstruction.innerHTML = `<strong><svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--accent-gold);"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/></svg> ${t.cake_instruction_done || 'Happy Birthday! May all your wishes come true in a blessed new year! <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>'}</strong>`;
 
         // Play festive chime
         playCelebrationTone();
@@ -739,8 +791,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 giftbox.classList.add('opened');
                 if (window.RouTracker) {
                     window.RouTracker.track('giftbox_opened', {
-                        title: 'Morning Surprise Box Opened',
-                        note: 'Rou unboxed the 3D gift box and read the morning teaser!'
+                        title: 'Gift Box Opened',
+                        note: 'Rou unboxed the 3D gift box and read the October 10th teaser!'
                     });
                 }
                 playCelebrationTone();
@@ -788,6 +840,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons[currentLang]) {
                 reasonsList = window.RouTranslations.reasons[currentLang];
+            }
+            if (!reasonsList || reasonsList.length === 0) {
+                return;
             }
             hasDrawnReason = true;
             currentReasonIndex = (currentReasonIndex + 1) % reasonsList.length;
@@ -938,7 +993,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
         if (trackStatus) {
-            trackStatus.innerHTML = `${t.track_status_playing || 'Now Playing for Rou'} <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
+            trackStatus.innerHTML = `${t.track_status_playing || 'Now Playing for You'} <svg class="svg-icon stroke" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
         }
 
         stopSynthesizedMelody();
