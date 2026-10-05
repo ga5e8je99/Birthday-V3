@@ -16,18 +16,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================================
     // 1. STATE & NAVIGATION
     // ===================================================================
+    // 1. STATE & NAVIGATION (SEQUENTIAL PROGRESSIVE UNLOCKING)
+    // ===================================================================
     let currentTheme = 'theme-rose';
     let isMusicPlaying = false;
     let hasMusicStarted = false;
     let audioContext = null;
     let melodyInterval = null;
     let candleBlown = false;
+    let stage1Completed = false;
+    let stage2Completed = false;
+    let giftboxOpened = false;
     let hasDrawnReason = false;
     let currentReasonIndex = 0;
     let currentLang = localStorage.getItem('rou_birthday_lang') || 'ar';
     let reasonsList = (window.RouTranslations && window.RouTranslations.reasons && window.RouTranslations.reasons[currentLang]) || [];
-    let isSiteLocked = false;
+    let isSiteLocked = true;
     let toastTimeout = null;
+
+    // Check preview/unlock parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('unlock') === 'true' || urlParams.get('preview') === 'true') {
+        window.__forceUnlocked = true;
+    }
 
     const navTabs = document.querySelectorAll('.nav-tab-btn');
     const viewSections = document.querySelectorAll('.view-section');
@@ -46,43 +57,134 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!lockToast) return;
         const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
         if (lockToastText) {
-            lockToastText.innerHTML = customMsg || t.lock_toast_msg || 'This section is locked until October 6, 2026! <i class="fa-solid fa-lock fa-icon-inline" style="color:#ef4444;"></i>';
+            lockToastText.innerHTML = customMsg || t.lock_toast_msg || 'المفاجأة مقفولة لحد نهاية العد التنازلي! ⏳🔒';
         }
         lockToast.classList.add('show');
         if (toastTimeout) clearTimeout(toastTimeout);
         toastTimeout = setTimeout(() => {
             lockToast.classList.remove('show');
-        }, 3200);
+        }, 3400);
         if (typeof playChime === 'function') {
             playChime(220, 0.15, 'triangle');
         }
     }
 
-    // Tab Switching
+    function syncStage2ButtonState() {
+        const btnGoStarsList = document.querySelectorAll('[data-switch="view-stars"]');
+        const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+
+        btnGoStarsList.forEach(btn => {
+            if (!stage2Completed) {
+                btn.classList.add('stage-locked-btn');
+                btn.innerHTML = `<span>${t.btn_go_stars_locked || 'افتحي الهدية الأول <i class="fa-solid fa-lock fa-icon-inline" style="color:#ffd700;"></i>'}</span>`;
+            } else {
+                btn.classList.remove('stage-locked-btn');
+                btn.innerHTML = `<span>${t.btn_go_stars || 'انتقلي إلى الكروت وسماء النجوم <i class="fa-solid fa-arrow-left fa-icon-inline"></i>'}</span><div class="btn-glow"></div>`;
+            }
+        });
+    }
+
+    // Tab Switching (with Strict Stage Progression Gating)
     navTabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
             const targetView = tab.getAttribute('data-view');
+            const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+
             if (isSiteLocked && targetView !== 'view-cake') {
                 e.preventDefault();
                 e.stopPropagation();
-                showLockToast();
-                tab.animate([
-                    { transform: 'translateX(0)' },
-                    { transform: 'translateX(-4px)' },
-                    { transform: 'translateX(4px)' },
-                    { transform: 'translateX(0)' }
-                ], { duration: 300 });
+                showLockToast(t.lock_toast_msg);
+                tab.classList.add('locked-shake-anim');
+                setTimeout(() => tab.classList.remove('locked-shake-anim'), 420);
                 return;
             }
+
+            if (targetView === 'view-scrapbook' && !stage1Completed) {
+                e.preventDefault();
+                e.stopPropagation();
+                showLockToast(t.lock_toast_stage1);
+                tab.classList.add('locked-shake-anim');
+                setTimeout(() => tab.classList.remove('locked-shake-anim'), 420);
+                return;
+            }
+
+            if (targetView === 'view-stars') {
+                if (!stage1Completed) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    showLockToast(t.lock_toast_stage1);
+                    tab.classList.add('locked-shake-anim');
+                    setTimeout(() => tab.classList.remove('locked-shake-anim'), 420);
+                    return;
+                }
+                if (!stage2Completed) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    showLockToast(t.lock_toast_stage2);
+                    tab.classList.add('locked-shake-anim');
+                    setTimeout(() => tab.classList.remove('locked-shake-anim'), 420);
+                    const gb = document.getElementById('giftboxInteractive');
+                    if (gb) {
+                        gb.classList.remove('giftbox-attention');
+                        void gb.offsetWidth;
+                        gb.classList.add('giftbox-attention');
+                        gb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+            }
+
             const targetTheme = tab.getAttribute('data-theme');
             switchThemeAndView(targetTheme, targetView);
         });
     });
 
-    // Sub-switch buttons (e.g., from end of cake to scrapbook, or back)
+    // Sub-switch buttons (e.g., from end of cake to scrapbook, or to stars)
     document.querySelectorAll('.mini-switch-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
             const targetView = btn.getAttribute('data-switch');
+            const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+
+            if (isSiteLocked && targetView !== 'view-cake') {
+                e.preventDefault();
+                showLockToast(t.lock_toast_msg);
+                btn.classList.add('locked-shake-anim');
+                setTimeout(() => btn.classList.remove('locked-shake-anim'), 420);
+                return;
+            }
+
+            if (targetView === 'view-scrapbook' && !stage1Completed) {
+                e.preventDefault();
+                showLockToast(t.lock_toast_stage1);
+                btn.classList.add('locked-shake-anim');
+                setTimeout(() => btn.classList.remove('locked-shake-anim'), 420);
+                return;
+            }
+
+            if (targetView === 'view-stars') {
+                if (!stage1Completed) {
+                    e.preventDefault();
+                    showLockToast(t.lock_toast_stage1);
+                    btn.classList.add('locked-shake-anim');
+                    setTimeout(() => btn.classList.remove('locked-shake-anim'), 420);
+                    return;
+                }
+                if (!stage2Completed) {
+                    e.preventDefault();
+                    showLockToast(t.lock_toast_stage2);
+                    btn.classList.add('locked-shake-anim');
+                    setTimeout(() => btn.classList.remove('locked-shake-anim'), 420);
+                    const gb = document.getElementById('giftboxInteractive');
+                    if (gb) {
+                        gb.classList.remove('giftbox-attention');
+                        void gb.offsetWidth;
+                        gb.classList.add('giftbox-attention');
+                        gb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+            }
+
             const targetTheme = (targetView === 'view-scrapbook') ? 'theme-scrapbook' : ((targetView === 'view-stars') ? 'theme-stars' : 'theme-rose');
             switchThemeAndView(targetTheme, targetView);
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -90,10 +192,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function switchThemeAndView(themeClass, viewId) {
+        const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
         if (isSiteLocked && viewId !== 'view-cake') {
-            showLockToast();
+            showLockToast(t.lock_toast_msg);
             return;
         }
+        if (viewId === 'view-scrapbook' && !stage1Completed) {
+            showLockToast(t.lock_toast_stage1);
+            return;
+        }
+        if (viewId === 'view-stars') {
+            if (!stage1Completed) {
+                showLockToast(t.lock_toast_stage1);
+                return;
+            }
+            if (!stage2Completed) {
+                showLockToast(t.lock_toast_stage2);
+                return;
+            }
+        }
+
         // Change body class
         document.body.className = themeClass + (isSiteLocked ? ' site-locked' : ' site-unlocked');
         currentTheme = themeClass;
@@ -256,39 +374,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainCountdown = document.getElementById('mainCountdown');
 
     function syncLockState(shouldBeLocked) {
-        isSiteLocked = false;
+        isSiteLocked = shouldBeLocked;
         const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
 
-        document.body.classList.remove('site-locked');
-        document.body.classList.add('site-unlocked');
+        if (isSiteLocked) {
+            document.body.classList.remove('site-unlocked');
+            document.body.classList.add('site-locked');
 
-        // Unlock all tabs
-        navTabs.forEach(tab => {
-            tab.classList.remove('tab-locked');
-            tab.removeAttribute('aria-disabled');
-            tab.removeAttribute('title');
-        });
+            // Lock all tabs
+            navTabs.forEach(tab => {
+                if (tab.getAttribute('data-view') !== 'view-cake') {
+                    tab.classList.add('tab-locked');
+                    tab.setAttribute('aria-disabled', 'true');
+                    tab.setAttribute('title', t.tab_locked_tooltip || 'مغلق');
+                }
+            });
 
-        // Unlock journey button
-        if (startRoseBtn) {
-            startRoseBtn.removeAttribute('aria-disabled');
-        }
-        if (startRoseBtnText) {
-            startRoseBtnText.innerHTML = t.btn_start_journey || 'ابدأي المفاجأة <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>';
+            // Lock journey button
+            if (startRoseBtn) {
+                startRoseBtn.classList.add('btn-locked');
+                startRoseBtn.setAttribute('aria-disabled', 'true');
+            }
+            if (startRoseBtnText) {
+                startRoseBtnText.innerHTML = t.btn_journey_locked || 'المفاجأة تفتح مع نهاية العد التنازلي <i class="fa-solid fa-lock fa-icon-inline" style="color:#ffd700;"></i>';
+            }
+        } else {
+            document.body.classList.remove('site-locked');
+            document.body.classList.add('site-unlocked');
+
+            // Unlock tabs that satisfy stage gating
+            navTabs.forEach(tab => {
+                const targetView = tab.getAttribute('data-view');
+                if (targetView === 'view-cake' || (targetView === 'view-scrapbook' && stage1Completed) || (targetView === 'view-stars' && stage2Completed)) {
+                    tab.classList.remove('tab-locked');
+                    tab.removeAttribute('aria-disabled');
+                    tab.removeAttribute('title');
+                } else {
+                    tab.classList.add('tab-locked');
+                    tab.setAttribute('aria-disabled', 'true');
+                }
+            });
+
+            // Unlock journey button
+            if (startRoseBtn) {
+                startRoseBtn.classList.remove('btn-locked');
+                startRoseBtn.removeAttribute('aria-disabled');
+            }
+            if (startRoseBtnText) {
+                startRoseBtnText.innerHTML = t.btn_start_journey || 'ابدأي المفاجأة <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>';
+            }
         }
 
-        if (unlockCelebrationBanner) {
-            unlockCelebrationBanner.classList.remove('show');
-        }
+        syncStage2ButtonState();
     }
 
     function updateCountdown() {
         const now = new Date();
         const diff = targetBirthday - now;
+        const shouldBeLocked = !window.__forceUnlocked && (diff > 0);
 
-        // Ensure all elements and views remain permanently unlocked
-        if (isSiteLocked || document.body.classList.contains('site-locked')) {
-            syncLockState(false);
+        if (isSiteLocked !== shouldBeLocked) {
+            syncLockState(shouldBeLocked);
         }
 
         if (diff <= 0) {
@@ -319,16 +465,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof playCelebrationTone === 'function') {
             playCelebrationTone();
         }
-        console.log('%c[UNLOCKED] Experience Unlocked for Preview / Testing!', 'color:#2ecc71; font-size:15px; font-weight:bold;');
+        console.log('%c[UNLOCKED] Birthday Surprise Countdown Unlocked for Testing!', 'color:#2ecc71; font-size:15px; font-weight:bold;');
+    };
+
+    window.unlockAllStages = function() {
+        window.__forceUnlocked = true;
+        stage1Completed = true;
+        stage2Completed = true;
+        candleBlown = true;
+        giftboxOpened = true;
+        syncLockState(false);
+        syncStage2ButtonState();
+        launchConfetti(80);
+        if (typeof playCelebrationTone === 'function') {
+            playCelebrationTone();
+        }
+        console.log('%c[ALL STAGES UNLOCKED] All stages completely unlocked for testing!', 'color:#ffd700; font-size:15px; font-weight:bold;');
     };
 
     window.lockExperience = function() {
         window.__forceUnlocked = false;
+        stage1Completed = false;
+        stage2Completed = false;
+        candleBlown = false;
+        giftboxOpened = false;
         updateCountdown();
-        console.log('%c[LOCKED] Experience Locked until Countdown Reaches Zero!', 'color:#ff4b72; font-size:15px; font-weight:bold;');
+        console.log('%c[LOCKED] Birthday Surprise Locked until Countdown Reaches Zero!', 'color:#ff4b72; font-size:15px; font-weight:bold;');
     };
 
-    syncLockState(false);
+    const initialDiff = targetBirthday - new Date();
+    syncLockState(!window.__forceUnlocked && (initialDiff > 0));
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
@@ -454,15 +620,11 @@ document.addEventListener('DOMContentLoaded', () => {
         startRoseBtn.addEventListener('click', (e) => {
             if (isSiteLocked) {
                 e.preventDefault();
-                showLockToast();
-                startRoseBtn.animate([
-                    { transform: 'translateX(0)' },
-                    { transform: 'translateX(-6px)' },
-                    { transform: 'translateX(6px)' },
-                    { transform: 'translateX(-4px)' },
-                    { transform: 'translateX(4px)' },
-                    { transform: 'translateX(0)' }
-                ], { duration: 350 });
+                const t = (window.RouTranslations && window.RouTranslations[currentLang]) || {};
+                showLockToast(t.lock_toast_msg || 'المفاجأة مقفولة لحد نهاية العد التنازلي! ⏳🔒');
+                startRoseBtn.classList.remove('locked-shake-anim');
+                void startRoseBtn.offsetWidth;
+                startRoseBtn.classList.add('locked-shake-anim');
                 return;
             }
             switchCakeStep('cakeStep2');
@@ -609,6 +771,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (candleBlown) return;
         candleBlown = true;
+        stage1Completed = true;
+
+        const tabScrapbook = document.querySelector('.nav-tab-btn[data-view="view-scrapbook"]');
+        if (tabScrapbook) {
+            tabScrapbook.classList.remove('tab-locked');
+            tabScrapbook.removeAttribute('aria-disabled');
+            tabScrapbook.removeAttribute('title');
+        }
 
         candleWrapper.classList.add('extinguished');
         if (window.RouTracker) {
@@ -789,6 +959,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (!giftbox.classList.contains('opened')) {
                 giftbox.classList.add('opened');
+                giftboxOpened = true;
+                stage2Completed = true;
+                syncStage2ButtonState();
+
+                const tabStars = document.querySelector('.nav-tab-btn[data-view="view-stars"]');
+                if (tabStars) {
+                    tabStars.classList.remove('tab-locked');
+                    tabStars.removeAttribute('aria-disabled');
+                    tabStars.removeAttribute('title');
+                }
+
                 if (window.RouTracker) {
                     window.RouTracker.track('giftbox_opened', {
                         title: 'Gift Box Opened',

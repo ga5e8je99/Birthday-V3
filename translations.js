@@ -31,11 +31,14 @@ window.RouTranslations = {
         after_countdown_title: 'A Little Birthday Surprise',
         after_countdown_desc: 'Take your time and enjoy everything here step by step. No rush at all... today is your day. <i class="fa-solid fa-heart fa-icon-inline fa-heart-themed"></i>',
         btn_start_journey: 'Begin Your Surprise <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>',
-        btn_journey_locked: 'Begin Your Surprise <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>',
+        btn_journey_locked: 'Surprise Unlocks When Countdown Ends <i class="fa-solid fa-lock fa-icon-inline" style="color:#ffd700;"></i>',
         lock_notice_title: '',
         lock_notice_desc: '',
         unlock_celebration_text: '<i class="fa-solid fa-party-horn fa-icon-inline" style="color:#ffd700;"></i> Welcome to your birthday surprise <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>',
-        lock_toast_msg: 'Welcome to your birthday experience! <i class="fa-solid fa-heart fa-icon-inline fa-heart-themed"></i>',
+        lock_toast_msg: 'This surprise is locked until the countdown reaches zero! ⏳🔒',
+        lock_toast_stage1: 'Blow out the birthday candle first to unlock passes and gift! 🎂🕯️',
+        lock_toast_stage2: 'Open the gift box first to discover the starlit sky! 🎁✨',
+        btn_go_stars_locked: 'Open the Gift First <i class="fa-solid fa-lock fa-icon-inline" style="color:#ffd700;"></i>',
 
         // Step 2: Envelope
         envelope_seal_text: 'Made For You <i class="fa-solid fa-envelope fa-icon-inline fa-envelope-themed"></i>',
@@ -184,11 +187,14 @@ window.RouTranslations = {
         after_countdown_title: 'مفاجأة عيد ميلاد صغيرة',
         after_countdown_desc: 'خدي وقتك واستمتعي بكل حاجة هنا واحدة واحدة. مفيش حاجة مستعجلة... النهارده يومك إنتِ. <i class="fa-solid fa-heart fa-icon-inline fa-heart-themed"></i>',
         btn_start_journey: 'ابدأي المفاجأة <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>',
-        btn_journey_locked: 'ابدأي المفاجأة <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>',
+        btn_journey_locked: 'المفاجأة تفتح مع نهاية العد التنازلي <i class="fa-solid fa-lock fa-icon-inline" style="color:#ffd700;"></i>',
         lock_notice_title: '',
         lock_notice_desc: '',
         unlock_celebration_text: '<i class="fa-solid fa-party-horn fa-icon-inline" style="color:#ffd700;"></i> أهلاً بيكي في مفاجأة معمولة عشانك <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>',
-        lock_toast_msg: 'أهلاً بيكي في مفاجأة معمولة عشانك! <i class="fa-solid fa-heart fa-icon-inline fa-heart-themed"></i>',
+        lock_toast_msg: 'المفاجأة مقفولة لحد نهاية العد التنازلي! ⏳🔒',
+        lock_toast_stage1: 'اطفي شمعة التورتة الأول عشان تفتحي الكروت والهدية! 🎂🕯️',
+        lock_toast_stage2: 'افتحي صندوق الهدية الأول عشان تكتشفي سماء النجوم! 🎁✨',
+        btn_go_stars_locked: 'افتحي الهدية الأول <i class="fa-solid fa-lock fa-icon-inline" style="color:#ffd700;"></i>',
 
         // Step 2: Envelope
         envelope_seal_text: 'مخصوص ليكي <i class="fa-solid fa-envelope fa-icon-inline fa-envelope-themed"></i>',

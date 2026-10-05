@@ -4048,95 +4048,122 @@ html[dir="rtl"] .counter-box {
    LOCKED BIRTHDAY EXPERIENCE (Until Countdown Reaches Zero)
    =================================================================== */
 
-/* 1. Nav Tabs are always unlocked */
-
-.tab-lock-badge {
+/* 1. When locked, hide everything beyond the countdown */
+body.site-locked #cakeStep2,
+body.site-locked #cakeStep3,
+body.site-locked #cakeStep4,
+body.site-locked #view-scrapbook,
+body.site-locked #view-stars,
+body.site-locked .after-countdown-banner {
     display: none !important;
 }
 
 /* 2. Locked Journey Button in Step 1 */
-#startRoseJourneyBtn {
-    cursor: pointer;
+body.site-locked #startRoseJourneyBtn {
+    opacity: 0.78;
+    cursor: not-allowed;
+    background: rgba(35, 18, 42, 0.82);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4) !important;
+    transform: none !important;
 }
 
-/* 3. Lock Notice Card */
-.lock-notice-card {
+body.site-locked #startRoseJourneyBtn .btn-glow {
     display: none !important;
 }
 
-@keyframes lockCardFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+body.site-locked #startRoseJourneyBtn:hover {
+    transform: none !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4) !important;
 }
 
-.lock-notice-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.25) 0%, rgba(255, 75, 114, 0.15) 100%);
-    border: 1.5px solid rgba(255, 215, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--accent-gold);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+/* 3. Stage Gating: Locked Stage Buttons */
+.magic-btn.stage-locked-btn {
+    opacity: 0.75;
+    cursor: not-allowed !important;
+    background: rgba(30, 20, 38, 0.85) !important;
+    border: 1px solid rgba(255, 215, 0, 0.38) !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
+    transform: none !important;
 }
 
-.lock-notice-icon svg {
-    width: 22px;
-    height: 22px;
-}
-
-.lock-notice-content {
-    flex: 1;
-}
-
-.lock-notice-title {
-    font-size: 0.96rem;
-    font-weight: 700;
-    color: #ffeb3b;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    text-shadow: 0 0 10px rgba(255, 235, 59, 0.3);
-}
-
-.lock-notice-text {
-    font-size: 0.84rem;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.5;
-    margin: 0;
-}
-
-.unlock-celebration-banner {
+.magic-btn.stage-locked-btn .btn-glow {
     display: none !important;
 }
 
-@keyframes bounceUnlock {
-    0% { transform: scale(0.85); opacity: 0; }
-    60% { transform: scale(1.04); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+.magic-btn.stage-locked-btn:hover {
+    transform: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* 5. Disabled / Locked elements removed — all elements fully interactive */
+/* 4. Locked Shake Animation */
+@keyframes lockedShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-7px); }
+    40% { transform: translateX(7px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
 
-/* 6. Lock Toast Notification */
+.locked-shake-anim {
+    animation: lockedShake 0.42s ease !important;
+}
+
+/* 5. Gift Box Attention Pulse (Guides her when trying to skip) */
+@keyframes giftboxAttentionPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+    }
+    50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 35px rgba(255, 215, 0, 0.85), 0 0 55px rgba(255, 75, 114, 0.6);
+    }
+}
+
+.giftbox-attention {
+    animation: giftboxAttentionPulse 0.9s ease 3;
+    border-radius: 20px;
+}
+
+/* 6. Nav Tabs Locked Styles (if used) */
+.nav-tab-btn.tab-locked {
+    opacity: 0.55;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.tab-lock-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    margin-inline-start: 4px;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
+    animation: lockBadgePulse 2.5s infinite ease-in-out;
+}
+
+@keyframes lockBadgePulse {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.18); opacity: 1; }
+}
+
+/* 7. Lock Toast Notification */
 .lock-toast {
     position: fixed;
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%) translateY(120%);
-    background: rgba(22, 10, 26, 0.94);
-    border: 1px solid var(--accent-gold);
+    background: rgba(22, 10, 26, 0.96);
+    border: 1.5px solid var(--accent-gold);
     color: #fff;
     padding: 12px 24px;
     border-radius: 35px;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-weight: 600;
     z-index: 999999;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 25px var(--accent-glow);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 25px var(--accent-glow);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -4154,30 +4181,12 @@ html[dir="rtl"] .counter-box {
 }
 
 @media (max-width: 580px) {
-    .lock-notice-card {
-        padding: 14px 16px;
-        gap: 12px;
-        margin: 18px 12px 6px;
-    }
-    .lock-notice-icon {
-        width: 38px;
-        height: 38px;
-    }
-    .lock-notice-icon svg {
-        width: 18px;
-        height: 18px;
-    }
-    .lock-notice-title {
-        font-size: 0.9rem;
-    }
-    .lock-notice-text {
-        font-size: 0.78rem;
-    }
     .lock-toast {
-        font-size: 0.82rem;
+        font-size: 0.84rem;
         padding: 10px 18px;
         bottom: 18px;
         white-space: normal;
     }
 }
+
 
