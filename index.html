@@ -163,20 +163,40 @@
                             <!-- FACE 1: COVER (Cartoon Artwork - Shown First) -->
                             <div class="card-face card-face-cover">
                                 <div class="card-cover-inner">
-                                    <div class="card-artwork-frame" id="cardArtworkFrame">
-                                        <img src="images/rou_birthday_card.jpg" alt="Happy Birthday روان - 生日快乐"
-                                            class="card-artwork-img" loading="eager" draggable="false">
+                                    <div class="card-cover-header">
+                                        <span class="cover-badge" data-i18n="card_cover_badge">
+                                            <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i>
+                                            كارت عيد ميلاد • معمول ليكي
+                                        </span>
                                     </div>
 
-                                    <!-- Action Button below image (replaces old hint text) -->
-                                    <div class="card-cover-action" id="cardFlipHint">
-                                        <button type="button" class="hint-action-btn" id="btnFlipCard"
-                                            aria-label="اضغطي لفتح الرسالة">
-                                            <span class="hint-hand-icon"><i class="fa-solid fa-sparkles"></i></span>
-                                            <span class="hint-text" data-i18n="card_flip_hint">دوسي على الصورة عشان
-                                                تشوفي الرسالة <i class="fa-solid fa-envelope-open-text fa-icon-inline"
-                                                    style="color:var(--accent-rose);"></i></span>
-                                        </button>
+                                    <div class="card-artwork-frame">
+                                        <img src="images/rou_birthday_card.jpg" alt="Happy Birthday Rou - 生日快乐"
+                                            class="card-artwork-img" loading="eager" draggable="false">
+
+                                        <!-- Interactive Hint Overlay (Visible until first click) -->
+                                        <div class="card-hint-overlay" id="cardFlipHint">
+                                            <div class="hint-content-pill">
+                                                <span class="hint-hand-icon"><i
+                                                        class="fa-solid fa-envelope-open-text"></i></span>
+                                                <span class="hint-text" data-i18n="card_flip_hint">دوسي على الصورة عشان
+                                                    تشوفي الرسالة <i
+                                                        class="fa-solid fa-envelope-open-text fa-icon-inline"
+                                                        style="color:var(--accent-rose);"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Corner Flip Cue -->
+                                        <div class="corner-flip-cue" aria-hidden="true" title="Flip Card">
+                                            <i class="fa-solid fa-arrow-rotate-right"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-cover-footer">
+                                        <span class="cover-hint-subtext" data-i18n="card_cover_hint_subtext">
+                                            <i class="fa-solid fa-sparkles fa-icon-inline fa-sparkle-themed"></i> اضغطي
+                                            على الكارت لفتحه وقراءة الرسالة
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -197,8 +217,9 @@
                                         <p data-i18n="letter_p3">أتمنى السنة الجديدة تكون أهدى، وأخف، وفيها حاجات كتير
                                             تفرحك وتخليكي فخورة بإنجازاتك وبكل اللي بتعمليه.</p>
                                         <p data-i18n="letter_p4">وأتمنى الأيام الجاية يكون فيها حاجات كتير نفسك فيها،
-                                            سواء في شغلك، دراستك، أو أي حاجة جديدة نفسك تجربيها.<br><br>خلي السنة دي سنة
-                                            تقربي فيها أكتر من الحاجات اللي بتحبيها، ومن الحاجات اللي نفسك توصليلها.</p>
+                                            سواء في شغلك، دراستك، السفر، أو أي حاجة جديدة نفسك تجربيها.<br><br>خلي السنة
+                                            دي سنة تقربي فيها أكتر من الحاجات اللي بتحبيها، ومن الحاجات اللي نفسك
+                                            توصليلها.</p>
                                         <p data-i18n="letter_p5">أتمنى يومك يكون على قد ما تستاهلي وأحلى.</p>
                                     </div>
                                     <div class="letter-footer">
